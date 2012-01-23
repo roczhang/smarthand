@@ -1,0 +1,6 @@
+C:\Users\zhangroc\app\CsvHelper\CSVHelper\bin\Debug\ElencySolutions.CsvHelper.XML
+C:\Users\zhangroc\app\CsvHelper\CSVHelper\bin\Debug\ElencySolutions.CsvHelper.dll
+C:\Users\zhangroc\app\CsvHelper\CSVHelper\bin\Debug\ElencySolutions.CsvHelper.pdb
+C:\Users\zhangroc\app\CsvHelper\CSVHelper\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\zhangroc\app\CsvHelper\CSVHelper\obj\Debug\ElencySolutions.CsvHelper.dll
+C:\Users\zhangroc\app\CsvHelper\CSVHelper\obj\Debug\ElencySolutions.CsvHelper.pdb

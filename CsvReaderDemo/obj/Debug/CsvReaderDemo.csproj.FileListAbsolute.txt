@@ -1,0 +1,14 @@
+C:\Users\zhangroc\app\CsvReaderDemo\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\zhangroc\app\CsvReaderDemo\obj\Debug\CsvReaderDemo.Form1.resources
+C:\Users\zhangroc\app\CsvReaderDemo\obj\Debug\CsvReaderDemo.Properties.Resources.resources
+C:\Users\zhangroc\app\CsvReaderDemo\obj\Debug\CsvReaderDemo.csproj.GenerateResource.Cache
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\CsvReaderDemo.exe
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\CsvReaderDemo.pdb
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\LumenWorks.Framework.Tests.Unit.dll
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\nunit.framework.dll
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\LumenWorks.Framework.IO.pdb
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\nunit.framework.xml
+C:\Users\zhangroc\app\CsvReaderDemo\bin\Debug\LumenWorks.Framework.Tests.Unit.pdb
+C:\Users\zhangroc\app\CsvReaderDemo\obj\Debug\CsvReaderDemo.exe
+C:\Users\zhangroc\app\CsvReaderDemo\obj\Debug\CsvReaderDemo.pdb
