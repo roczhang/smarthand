@@ -2,4 +2,13 @@
 *.pdb
 */Debug/*
 */Release/*
-
+/CsvHelper/Debug/*
+/CsvHelper/Release/*
+/CsvReader.sln
+/CsvReaderBenchmarks/Debug/*
+/CsvReaderBenchmarks/Release/*
+/CsvReaderDemo/Debug/*
+/CsvReaderDemo/Release/*
+/CsvReaderDemoWeb/Debug/*
+/CsvReaderDemoWeb/Release/*
+/*.csv
