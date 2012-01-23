@@ -2,8 +2,6 @@
 *.exe
 *.pdb
 *.cache
-*/Debug/*
-*/Release/*
 /CsvHelper/Debug
 /CsvHelper/Release
 /CsvReader.sln
@@ -13,5 +11,9 @@
 /CsvReaderDemo/Release
 /CsvReaderDemoWeb/Debug
 /CsvReaderDemoWeb/Release
+/LumenWorks.Framework.IO/obj
+/LumenWorks.Framework.Tests.Unit/bin
+/LumenWorks.Framework.Tests.Unit/obj
+/app/obj/
 /*.csv
 
