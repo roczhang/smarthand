@@ -1,4 +1,5 @@
 *.dll
+*.exe
 *.pdb
 */Debug/*
 */Release/*
