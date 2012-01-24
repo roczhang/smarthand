@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvReaderBenchmarks", "..\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "console", "..\console\console.csproj", "{4E66F7B2-B9D6-4E08-B9DD-0350231B4637}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app", "..\app\app.csproj", "{A3FBF01A-E4C3-4C87-A175-EF014450C0EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApp", "..\app\DataApp.csproj", "{A3FBF01A-E4C3-4C87-A175-EF014450C0EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

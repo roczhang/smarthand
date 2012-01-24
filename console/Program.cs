@@ -5,6 +5,7 @@ using System.Text;
 using LumenWorks.Framework.IO.Csv;
 using System.IO;
 using System.Globalization;
+using RecordLibrary;
 
 namespace console
 {
@@ -18,23 +19,30 @@ namespace console
             {
                 int fieldCount = csv.FieldCount; 
 
-                FileStream fs = new FileStream("log.csv", FileMode.Create);
+                FileStream fs = new FileStream("log.csv", FileMode.Append);
                 StreamWriter streamWriter = new StreamWriter(fs);
                 streamWriter.BaseStream.Seek(0, SeekOrigin.End);
 
                 int lineNumber = 0;
-                int igore = 3; // igore the first 4 line ( 0 , 1, 2, 3)
+                //int igore = 3; // igore the first 4 line ( 0 , 1, 2, 3)
                 while (csv.ReadNextRecord())
                 {
                     Console.Write("{0}: ", lineNumber);
                     lineNumber++;
 
-                    if (igore > 0) // igore the format
-                    {
-                        igore--;
-                        continue;
+                    //if (igore > 0) // igore the format
+                    //{
+                    //    igore--;
+                    //    continue;
 
+                    //}
+
+                    if( csv.HasHeaders)
+                    {
+                        foreach (string header in csv.GetFieldHeaders())
+                            Console.Write(header);
                     }
+
 
                     string record = "";
                     Boolean done = false;
@@ -43,7 +51,7 @@ namespace console
                         if (!String.IsNullOrEmpty(csv[0]))
                         {
                             Console.Write(" {0} ", csv[i]);
-                            record = record + "," + csv[i];
+                            record = record + csv[i] + ",";
                         }
                         else
                             done = true;
@@ -73,7 +81,7 @@ namespace console
             foreach (FileInfo fi in di.GetFiles())
             {
                 //work   on   fi 
-                if (fi.FullName.EndsWith("DB.csv" ))
+                //if (fi.FullName.EndsWith("DB.csv" ))
                 {
                     filelists.Add(fi.FullName);
                     Console.WriteLine(fi.FullName);
@@ -89,33 +97,20 @@ namespace console
         } 
         static void Main(string[] args)
         {
-            //get file name
-            // read it and save it as data source
-            
-            DirectoryInfo   di   =   new   DirectoryInfo   ( @"C:\Users\zhangroc\app\data"); 
-            List<string> filelists = CheckDir(di);
+           
+           
+            string filePath = @"C:\Users\zhangroc\app\data\DB.csv";
+            RecordStructure rs = new RecordStructure(filePath);
 
-            foreach (string file in filelists)
+            List<PeopleInfo> recordlist = new List<PeopleInfo>();
+            Boolean isfind = rs.Query("程中", ref recordlist);
+            if ( isfind )
             {
-                Console.WriteLine(file);
-                CreateOrgDB(file);
+                foreach (PeopleInfo p in recordlist)
+                {
+                    Console.WriteLine(p.ToString());
+                }
             }
-            
-
-            
-            //ReadCsv();
-
-            //string test = "一二三张亚光天天向上好好学习";
-
-            //if (test == "张亚光")
-            //    Console.WriteLine("正确");
-
-            // //test.
-            //string test2 = test.Replace("张亚光","吕宾");
-
-            //Console.WriteLine(test);
-            //Console.WriteLine(test2);
-            //Console.WriteLine();
         }
     }
 }
