@@ -18,4 +18,4 @@
 /app/obj/
 /*.csv
 /LumenWorks.Framework.IO/_ReSharper.LumenWorks.Framework.IO/¡Á
-
+/app/DataApp.csproj.user
