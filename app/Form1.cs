@@ -15,5 +15,39 @@ namespace app
         {
             InitializeComponent();
         }
+
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisableInput(true);
+        }
+
+        public void DisableInput(bool enabled)
+        {
+            this.nameText.Enabled    = enabled;
+            this.ageText.Enabled     = enabled;
+            this.sexText.Enabled     = enabled;
+            this.addressText.Enabled = enabled;
+            this.numberText.Enabled  = enabled;
+                   
+            this.calenderTimePicker.Enabled = enabled;
+
+            this.diagnosisText.Enabled = enabled;
+            this.allCostText.Enabled = enabled;
+            this.selfPayText.Enabled = enabled;
+            this.compensatePayText.Enabled = enabled;
+
+            this.NextRecord.Enabled = enabled;
+            this.PreviousRecord.Enabled = enabled;
+            
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
     }
 }

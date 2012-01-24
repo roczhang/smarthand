@@ -1,4 +1,5 @@
 <Modules>
   <Module PersistentId="4E66F7B2-B9D6-4E08-B9DD-0350231B4637" ModuleId="console" />
   <Module PersistentId="E3B83D68-C90C-4874-8E5F-DEC8D038BC7C" ModuleId="LunmenWorks.Framework.IO" />
+  <Module PersistentId="A3FBF01A-E4C3-4C87-A175-EF014450C0EC" ModuleId="DataApp" />
 </Modules>

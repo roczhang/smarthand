@@ -97,8 +97,6 @@ namespace console
         } 
         static void Main(string[] args)
         {
-           
-           
             string filePath = @"C:\Users\zhangroc\app\data\DB.csv";
             RecordStructure rs = new RecordStructure(filePath);
 
