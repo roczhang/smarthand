@@ -80,7 +80,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\console\DataLibrary.csproj">
+    <ProjectReference Include="..\Datalibrary\DataLibrary.csproj">
       <Project>{4E66F7B2-B9D6-4E08-B9DD-0350231B4637}</Project>
       <Name>DataLibrary</Name>
     </ProjectReference>

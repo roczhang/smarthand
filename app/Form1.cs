@@ -12,9 +12,23 @@ namespace app
 {
     public partial class Form1 : Form
     {
+        private RecordStructure m_smartbufferlist;
+        private string m_name = "";
+        private string m_no = "";
+        private string m_address = "";
+        private float m_age = 0.0f;
+        private string m_sex = "";
+
+        //private DateTime m_dateTime = System.DateTime.Today();
+
+        private float m_allCost = 0.0f;
+        private float m_selfCost = 0.0f;
+        private float m_compenatecost = 0.0f;
         public Form1()
         {
             InitializeComponent();
+            string filePath = @"C:\Users\zhangroc\app\data\DB.csv";
+            m_smartbufferlist = new RecordStructure(filePath);
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,7 +68,97 @@ namespace app
             
         }
 
-       
+        private void SetCurrentRecord(PeopleInfo peopleInfo)
+        {
+ 	        this.numberText.Text = peopleInfo.m_no;
+            this.ageText.Text = peopleInfo.m_age.ToString();
+            this.sexText.Text = peopleInfo.m_sex;
+            this.addressText.Text = peopleInfo.m_address;
+        }
+
+
+
+ 
+
+        private void nameText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyValue == 13)
+            {
+                string name = nameText.Text.Trim();
+                List<PeopleInfo> peopleList = new List<PeopleInfo>();
+                bool isExsited = m_smartbufferlist.Query(name, ref peopleList);
+                if (isExsited)
+                {
+                    SetCurrentRecord(peopleList.First());
+                    this.diagnosisText.Focus();
+                }
+                else
+                {
+                    this.numberText.Focus();
+                }
+                
+               ;
+                
+            }
+
+            
+        }
+
+        private void diagnosisText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if ( e.KeyValue == 13)
+            {
+                allCostText.Focus();
+            }
+        }
+
+        private void allCostText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                //try
+                //{
+                //    m_allCost = float.TryParse(this.allCostText.Text.Trim());
+                //}
+                //catch (Exception)
+                //{
+                //    MessageBox("总费用是数值");
+                //}
+
+                m_allCost = float.Parse(this.allCostText.Text.Trim());
+
+                //later the caclulation formular will change
+                if (m_allCost > 0)
+                {
+                    m_selfCost =  m_allCost*0.7f;
+                    m_compenatecost = m_allCost - m_selfCost;
+
+                    this.selfPayText.Text = m_selfCost.ToString();
+                    this.compensatePayText.Text = m_compenatecost.ToString();
+                    compensatePayText.Focus();
+                }
+
+
+            }
+        }
+
+  
+
+        private void compensatePayText_KeyUp(object sender, KeyEventArgs e)
+        {
+             if (e.KeyValue == 13)
+             {
+                 string newValue = compensatePayText.Text.Trim();
+                 string oldValue = m_compenatecost.ToString();
+                 if (  String.Compare(newValue, oldValue) != 0)
+                 {
+                     m_compenatecost = float.Parse(newValue);
+                     m_selfCost = m_allCost - m_compenatecost;
+                     selfPayText.Text = m_selfCost.ToString();
+                 }
+                 NextRecord.Focus();
+             }
+        }
 
     }
 }

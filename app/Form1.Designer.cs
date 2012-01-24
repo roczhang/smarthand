@@ -62,15 +62,15 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -94,6 +94,7 @@
             this.nameText.Size = new System.Drawing.Size(100, 20);
             this.nameText.TabIndex = 1;
             this.nameText.TextChanged += new System.EventHandler(this.nameText_TextChanged);
+            this.nameText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nameText_KeyUp);
             // 
             // label2
             // 
@@ -219,6 +220,7 @@
             this.allCostText.Name = "allCostText";
             this.allCostText.Size = new System.Drawing.Size(87, 20);
             this.allCostText.TabIndex = 8;
+            this.allCostText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.allCostText_KeyUp);
             // 
             // label8
             // 
@@ -253,6 +255,7 @@
             this.compensatePayText.Name = "compensatePayText";
             this.compensatePayText.Size = new System.Drawing.Size(84, 20);
             this.compensatePayText.TabIndex = 10;
+            this.compensatePayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.compensatePayText_KeyUp);
             // 
             // groupBox2
             // 
@@ -277,6 +280,7 @@
             this.diagnosisText.Name = "diagnosisText";
             this.diagnosisText.Size = new System.Drawing.Size(87, 20);
             this.diagnosisText.TabIndex = 7;
+            this.diagnosisText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.diagnosisText_KeyUp);
             // 
             // label10
             // 
@@ -377,9 +381,33 @@
             // NewToolStripMenuItem
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.NewToolStripMenuItem.Text = "新建";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem1
+            // 
+            this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.openToolStripMenuItem1.Text = "打开";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Text = "保存";
+            // 
+            // recentOpenToolStripMenuItem
+            // 
+            this.recentOpenToolStripMenuItem.Name = "recentOpenToolStripMenuItem";
+            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.recentOpenToolStripMenuItem.Text = "最近打开";
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.exitToolStripMenuItem1.Text = "退出";
             // 
             // statisticsToolStripMenuItem
             // 
@@ -393,32 +421,14 @@
             // statisticsPageToolStripMenuItem
             // 
             this.statisticsPageToolStripMenuItem.Name = "statisticsPageToolStripMenuItem";
-            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.statisticsPageToolStripMenuItem.Text = "统计页";
             // 
             // SettingToolStripMenuItem
             // 
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
-            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.SettingToolStripMenuItem.Text = "设置";
-            // 
-            // openToolStripMenuItem1
-            // 
-            this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem1.Text = "打开";
-            // 
-            // recentOpenToolStripMenuItem
-            // 
-            this.recentOpenToolStripMenuItem.Name = "recentOpenToolStripMenuItem";
-            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.recentOpenToolStripMenuItem.Text = "最近打开";
-            // 
-            // exitToolStripMenuItem1
-            // 
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem1.Text = "退出";
             // 
             // aboutToolStripMenuItem
             // 
@@ -431,14 +441,8 @@
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.InfoToolStripMenuItem.Text = "作者及版权";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItem1.Text = "保存";
             // 
             // Form1
             // 
