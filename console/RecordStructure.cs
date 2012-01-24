@@ -5,7 +5,7 @@ using System.Text;
 using LumenWorks.Framework.IO.Csv;
 using System.IO;
 
-namespace RecordLibrary
+namespace Datalibrary
 {
     class RecordStructure
     {

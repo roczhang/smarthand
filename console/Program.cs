@@ -5,9 +5,9 @@ using System.Text;
 using LumenWorks.Framework.IO.Csv;
 using System.IO;
 using System.Globalization;
-using RecordLibrary;
+using Datalibrary;
 
-namespace console
+namespace Datalibrary
 {
     class Program
     {

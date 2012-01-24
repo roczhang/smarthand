@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Datalibrary;
 
 namespace app
 {
@@ -19,6 +20,7 @@ namespace app
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DisableInput(true);
+            this.nameText.Focus();
         }
 
         public void DisableInput(bool enabled)
@@ -49,12 +51,7 @@ namespace app
 
         private void nameText_TextChanged(object sender, EventArgs e)
         {
-            this.ageText.Text = "100";
-            this.addressText.Text = "普东";
-            this.sexText.Text = "男";
-            this.numberText.Text = "0110120030456"; 
-
-
+            
         }
 
        
