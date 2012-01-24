@@ -32,11 +32,11 @@ namespace app
             this.calenderTimePicker.Enabled = enabled;
 
             this.diagnosisText.Enabled = enabled;
-            this.allCostText.Enabled = enabled;
-            this.selfPayText.Enabled = enabled;
+            this.allCostText.Enabled   = enabled;
+            this.selfPayText.Enabled   = enabled;
             this.compensatePayText.Enabled = enabled;
 
-            this.NextRecord.Enabled = enabled;
+            this.NextRecord.Enabled     = enabled;
             this.PreviousRecord.Enabled = enabled;
             
 
@@ -44,6 +44,16 @@ namespace app
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void nameText_TextChanged(object sender, EventArgs e)
+        {
+            this.ageText.Text = "100";
+            this.addressText.Text = "普东";
+            this.sexText.Text = "男";
+            this.numberText.Text = "0110120030456"; 
+
 
         }
 

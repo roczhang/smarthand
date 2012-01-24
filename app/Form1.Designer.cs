@@ -93,6 +93,7 @@
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(100, 20);
             this.nameText.TabIndex = 1;
+            this.nameText.TextChanged += new System.EventHandler(this.nameText_TextChanged);
             // 
             // label2
             // 
@@ -126,7 +127,7 @@
             this.ageText.Location = new System.Drawing.Point(93, 157);
             this.ageText.Name = "ageText";
             this.ageText.Size = new System.Drawing.Size(100, 20);
-            this.ageText.TabIndex = 5;
+            this.ageText.TabIndex = 4;
             // 
             // label4
             // 
@@ -143,7 +144,7 @@
             this.sexText.Location = new System.Drawing.Point(93, 207);
             this.sexText.Name = "sexText";
             this.sexText.Size = new System.Drawing.Size(100, 20);
-            this.sexText.TabIndex = 7;
+            this.sexText.TabIndex = 5;
             // 
             // label5
             // 
@@ -160,7 +161,7 @@
             this.numberText.Location = new System.Drawing.Point(93, 69);
             this.numberText.Name = "numberText";
             this.numberText.Size = new System.Drawing.Size(100, 20);
-            this.numberText.TabIndex = 9;
+            this.numberText.TabIndex = 2;
             // 
             // label6
             // 
@@ -199,7 +200,7 @@
             this.calenderTimePicker.Location = new System.Drawing.Point(93, 253);
             this.calenderTimePicker.Name = "calenderTimePicker";
             this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
-            this.calenderTimePicker.TabIndex = 12;
+            this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
             // 
             // label7
@@ -217,7 +218,7 @@
             this.allCostText.Location = new System.Drawing.Point(79, 75);
             this.allCostText.Name = "allCostText";
             this.allCostText.Size = new System.Drawing.Size(87, 20);
-            this.allCostText.TabIndex = 14;
+            this.allCostText.TabIndex = 8;
             // 
             // label8
             // 
@@ -234,7 +235,7 @@
             this.selfPayText.Location = new System.Drawing.Point(78, 122);
             this.selfPayText.Name = "selfPayText";
             this.selfPayText.Size = new System.Drawing.Size(85, 20);
-            this.selfPayText.TabIndex = 16;
+            this.selfPayText.TabIndex = 9;
             // 
             // label9
             // 
@@ -251,7 +252,7 @@
             this.compensatePayText.Location = new System.Drawing.Point(79, 167);
             this.compensatePayText.Name = "compensatePayText";
             this.compensatePayText.Size = new System.Drawing.Size(84, 20);
-            this.compensatePayText.TabIndex = 18;
+            this.compensatePayText.TabIndex = 10;
             // 
             // groupBox2
             // 
@@ -275,7 +276,7 @@
             this.diagnosisText.Location = new System.Drawing.Point(79, 34);
             this.diagnosisText.Name = "diagnosisText";
             this.diagnosisText.Size = new System.Drawing.Size(87, 20);
-            this.diagnosisText.TabIndex = 23;
+            this.diagnosisText.TabIndex = 7;
             // 
             // label10
             // 
@@ -299,10 +300,10 @@
             // PreviousRecord
             // 
             this.PreviousRecord.Enabled = false;
-            this.PreviousRecord.Location = new System.Drawing.Point(-10, 412);
+            this.PreviousRecord.Location = new System.Drawing.Point(2, 412);
             this.PreviousRecord.Name = "PreviousRecord";
             this.PreviousRecord.Size = new System.Drawing.Size(270, 83);
-            this.PreviousRecord.TabIndex = 21;
+            this.PreviousRecord.TabIndex = 11;
             this.PreviousRecord.Text = "上一个";
             this.PreviousRecord.UseVisualStyleBackColor = true;
             // 
@@ -445,8 +446,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 496);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.CurrentRecordLabel);
+            this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
