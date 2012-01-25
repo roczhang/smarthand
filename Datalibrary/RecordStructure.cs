@@ -80,9 +80,9 @@ namespace Datalibrary
         private  void AddRecord(PeopleInfo record)
         {
  
-            if ( m_people.ContainsKey( record.m_name))
+            if ( m_people.ContainsKey( record.Name))
             {
-                List<PeopleInfo> recordlist = m_people[record.m_name];
+                List<PeopleInfo> recordlist = m_people[record.Name];
                 
                 foreach(PeopleInfo people in recordlist)
                 {
@@ -99,7 +99,7 @@ namespace Datalibrary
             {
                 List<PeopleInfo> recordlist = new List<PeopleInfo>();
                 recordlist.Add(record);
-                m_people.Add(record.m_name, recordlist);
+                m_people.Add(record.Name, recordlist);
             }
         }
 
@@ -125,7 +125,7 @@ namespace Datalibrary
             foreach (KeyValuePair<string, List<PeopleInfo>> pair in m_people)
             {
                 PeopleInfo p = pair.Value.First();
-                string record = p.m_address + "," + p.m_no + "," + p.m_name + "," +  p.m_age + "," + p.m_sex + ",";
+                string record = p.Address + "," + p.No + "," + p.Name + "," +  p.Age + "," + p.Sex + ",";
                 streamWriter.WriteLine(record);
             }
             streamWriter.Flush();

@@ -38,10 +38,40 @@ namespace Datalibrary
             return m_address + ":" + m_no + ":" + m_name + ":" + m_age + ":" + m_sex;
         }
 
-        public string m_name="";
-        public string m_no="";
-        public float m_age=0;
-        public string m_address="";
-        public string m_sex="";
+       public string Name
+       {
+           get { return m_name;  }
+           set { m_name = value;  }
+       }
+
+       public string No
+       {
+           get { return m_no;  }
+           set { m_no = value; }
+       }
+
+       public float Age
+       {
+           get { return m_age;  }
+           set { m_age = value; }
+       }
+
+       public string Address
+       {
+           get { return m_address;  }
+           set { m_address = value;  }
+       }
+        
+       public string Sex
+       {
+           get { return m_sex;  }
+           set { m_sex = value; }
+
+       }
+        private string m_name="";
+        private string m_no = "";
+        private float m_age = 0;
+        private string m_address = "";
+        private string m_sex = "";
     }
 }

@@ -93,13 +93,12 @@
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(100, 20);
             this.nameText.TabIndex = 1;
-            this.nameText.TextChanged += new System.EventHandler(this.nameText_TextChanged);
             this.nameText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nameText_KeyUp);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 109);
+            this.label2.Location = new System.Drawing.Point(41, 118);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 2;
@@ -108,10 +107,11 @@
             // addressText
             // 
             this.addressText.Enabled = false;
-            this.addressText.Location = new System.Drawing.Point(93, 102);
+            this.addressText.Location = new System.Drawing.Point(91, 111);
             this.addressText.Name = "addressText";
             this.addressText.Size = new System.Drawing.Size(102, 20);
             this.addressText.TabIndex = 3;
+            this.addressText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.addressText_KeyUp);
             // 
             // label3
             // 
@@ -129,6 +129,7 @@
             this.ageText.Name = "ageText";
             this.ageText.Size = new System.Drawing.Size(100, 20);
             this.ageText.TabIndex = 4;
+            this.ageText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ageText_KeyUp);
             // 
             // label4
             // 
@@ -146,6 +147,7 @@
             this.sexText.Name = "sexText";
             this.sexText.Size = new System.Drawing.Size(100, 20);
             this.sexText.TabIndex = 5;
+            this.sexText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.sexText_KeyUp);
             // 
             // label5
             // 
@@ -163,6 +165,7 @@
             this.numberText.Name = "numberText";
             this.numberText.Size = new System.Drawing.Size(100, 20);
             this.numberText.TabIndex = 2;
+            this.numberText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numberText_KeyUp);
             // 
             // label6
             // 
@@ -204,7 +207,6 @@
             this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
             this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
-            //this.calenderTimePicker.DragLeave += new System.EventHandler(this.calenderTimePicker_DragLeave);
             // 
             // label7
             // 
@@ -227,7 +229,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(27, 125);
+            this.label8.Location = new System.Drawing.Point(28, 162);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 15;
@@ -236,15 +238,16 @@
             // selfPayText
             // 
             this.selfPayText.Enabled = false;
-            this.selfPayText.Location = new System.Drawing.Point(78, 122);
+            this.selfPayText.Location = new System.Drawing.Point(79, 159);
             this.selfPayText.Name = "selfPayText";
             this.selfPayText.Size = new System.Drawing.Size(85, 20);
             this.selfPayText.TabIndex = 9;
+            this.selfPayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.selfPayText_KeyUp);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 176);
+            this.label9.Location = new System.Drawing.Point(25, 124);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 17;
@@ -253,7 +256,7 @@
             // compensatePayText
             // 
             this.compensatePayText.Enabled = false;
-            this.compensatePayText.Location = new System.Drawing.Point(79, 167);
+            this.compensatePayText.Location = new System.Drawing.Point(79, 117);
             this.compensatePayText.Name = "compensatePayText";
             this.compensatePayText.Size = new System.Drawing.Size(84, 20);
             this.compensatePayText.TabIndex = 10;

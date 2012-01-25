@@ -16,19 +16,19 @@ namespace app
         private RecordStructure m_smartbufferlist;
         private IList<Record> m_recordList;
         private Record m_currentRecord ;
-        private string m_name = "";
-        private string m_no = "";
-        private string m_address = "";
-        private float m_age = 0.0f;
-        private string m_sex = "";
+        //private string m_name = "";
+        //private string m_no = "";
+        //private string m_address = "";
+        //private float m_age = 0.0f;
+        //private string m_sex = "";
 
-        private string m_currentData = DateTime.Today.ToShortDateString();
+        //private string m_currentData = DateTime.Today.ToShortDateString();
 
-        private string m_diagose = "";
+        //private string m_diagose = "";
 
-        private float m_allCost = 0.0f;
-        private float m_selfPay = 0.0f;
-        private float m_compenatecost = 0.0f;
+        //private float m_allCost = 0.0f;
+        //private float m_selfPay = 0.0f;
+        //private float m_compenatecost = 0.0f;
 
         
         public Form1()
@@ -39,6 +39,8 @@ namespace app
             m_smartbufferlist = new RecordStructure(filePath);
 
             m_recordList = new List<Record>();
+            m_currentRecord = new Record();
+            m_currentRecord.Date = DateTime.Today.ToShortDateString();
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,22 +75,20 @@ namespace app
 
         }
 
-        private void nameText_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
 
-        private void SetCurrentRecord(PeopleInfo peopleInfo)
+        private void SetCurrentRecord(PeopleInfo people)
         {
- 	        this.numberText.Text = peopleInfo.m_no;
-            this.ageText.Text = peopleInfo.m_age.ToString();
-            this.sexText.Text = peopleInfo.m_sex;
-            this.addressText.Text = peopleInfo.m_address;
+            this.numberText.Text = people.No;
+            this.ageText.Text = people.Age.ToString();
+            this.sexText.Text = people.Sex;
+            this.addressText.Text = people.Address;
+
+            m_currentRecord.People = people;
         }
 
         private void nameText_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyValue == 13)
+            if(e.KeyValue == 13 && ! String.IsNullOrEmpty(nameText.Text.Trim()))
             {
                 string name = nameText.Text.Trim();
                 List<PeopleInfo> peopleList = new List<PeopleInfo>();
@@ -96,6 +96,7 @@ namespace app
                 if (isExsited)
                 {
                     SetCurrentRecord(peopleList.First());
+                    
                     this.diagnosisText.Focus();
                 }
                 else
@@ -112,15 +113,16 @@ namespace app
 
         private void diagnosisText_KeyUp(object sender, KeyEventArgs e)
         {
-            if ( e.KeyValue == 13)
+            if ( e.KeyValue == 13 &&!String.IsNullOrEmpty(diagnosisText.Text.Trim()))
             {
+                m_currentRecord.Diagnose = this.diagnosisText.Text.Trim();
                 allCostText.Focus();
             }
         }
 
         private void allCostText_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)
+            if (e.KeyValue == 13 && !String.IsNullOrEmpty(allCostText.Text.Trim()))
             {
                 //try
                 //{
@@ -131,16 +133,16 @@ namespace app
                 //    MessageBox("总费用是数值");
                 //}
 
-                m_allCost = float.Parse(this.allCostText.Text.Trim());
+                m_currentRecord.AllCost = float.Parse(this.allCostText.Text.Trim());
 
                 //later the caclulation formular will change
-                if (m_allCost > 0)
+                if (m_currentRecord.AllCost > 0)
                 {
-                    m_selfPay =  m_allCost*0.7f;
-                    m_compenatecost = m_allCost - m_selfPay;
+                    m_currentRecord.Compensation = m_currentRecord.AllCost * 0.7f;
+                    //m_currentRecord.SelfPaym_compenatecost = m_currentRecord.AllCost - m_currentRecord.SelfPay;
 
-                    this.selfPayText.Text = m_selfPay.ToString();
-                    this.compensatePayText.Text = m_compenatecost.ToString();
+                    this.selfPayText.Text = m_currentRecord.SelfPay.ToString();
+                    this.compensatePayText.Text = m_currentRecord.Compensation.ToString();
                     compensatePayText.Focus();
                 }
 
@@ -150,20 +152,30 @@ namespace app
 
         private void compensatePayText_KeyUp(object sender, KeyEventArgs e)
         {
-             if (e.KeyValue == 13)
+             if (e.KeyValue == 13 && !String.IsNullOrEmpty(compensatePayText.Text.Trim()))
              {
                  string newValue = compensatePayText.Text.Trim();
-                 string oldValue = m_compenatecost.ToString();
+                 string oldValue = m_currentRecord.Compensation.ToString();
                  if (  String.Compare(newValue, oldValue) != 0)
                  {
-                     m_compenatecost = float.Parse(newValue);
-                     m_selfPay = m_allCost - m_compenatecost;
-                     selfPayText.Text = m_selfPay.ToString();
+                     m_currentRecord.Compensation = float.Parse(newValue);
+                     selfPayText.Text = m_currentRecord.SelfPay.ToString();
                  }
                  NextRecord.Focus();
              }
         }
 
+        private void selfPayText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13 && !String.IsNullOrEmpty(selfPayText.Text.Trim()))
+            {
+                float selfPay = float.Parse(selfPayText.Text.Trim());
+                m_currentRecord.Compensation = m_currentRecord.AllCost - selfPay;
+
+                compensatePayText.Text = m_currentRecord.Compensation.ToString();
+                NextRecord.Focus();
+            }
+        }
         private void NextRecord_Click(object sender, EventArgs e)
         {
            
@@ -171,8 +183,8 @@ namespace app
                !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
                !String.IsNullOrEmpty(allCostText.Text.Trim()))
            {
+                          
 
-               ClearUI();
 
                SaveCurrentRecord();
 
@@ -181,6 +193,8 @@ namespace app
                // UpdateSerailStatus();
 
                // UpdateSmartBuffer();
+
+               ClearUI();
                
            }
             
@@ -189,12 +203,7 @@ namespace app
 
         private void SaveCurrentRecord()
         {
-            Record r = new Record(m_name, m_no, m_age, m_address, m_sex,
-                m_diagose, m_allCost, m_selfPay, m_currentData);
-
-            m_currentRecord = r;
-            m_recordList.Add(r);
-
+            m_recordList.Add(m_currentRecord);
         }
 
         private void ClearUI()
@@ -209,12 +218,57 @@ namespace app
             this.allCostText.Clear();
             this.selfPayText.Clear();
             this.compensatePayText.Clear();
+
+            m_currentRecord.Clear();
         }
 
         private void calenderTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            m_currentData = this.calenderTimePicker.Text;
+            m_currentRecord.Date = this.calenderTimePicker.Text;
         }
+
+        private void numberText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13 && !String.IsNullOrEmpty(numberText.Text.Trim()))
+            {
+                m_currentRecord.No = numberText.Text.Trim();
+
+                addressText.Focus();
+            }
+        }
+
+        private void addressText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13 && !String.IsNullOrEmpty(addressText.Text.Trim()))
+            {
+                m_currentRecord.Address = addressText.Text.Trim();
+
+                ageText.Focus();
+            }
+
+        }
+
+        private void ageText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13 && !String.IsNullOrEmpty(ageText.Text.Trim()))
+            {
+                m_currentRecord.Age = float.Parse(ageText.Text.Trim());
+
+                sexText.Focus();
+            }
+        }
+
+        private void sexText_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13 && !String.IsNullOrEmpty(sexText.Text.Trim()))
+            {
+                m_currentRecord.Sex = sexText.Text.Trim();
+
+                diagnosisText.Focus();
+            }
+        }
+
+
 
     }
 }
