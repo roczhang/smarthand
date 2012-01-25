@@ -430,6 +430,7 @@ namespace app
                     float compenation = float.Parse(csv[13].Trim().Replace("?",""));
 
                     Record r = new Record(p,diagose,allcost,compenation,date);
+              
                     m_recordList.Add(r);
                 }
                 
