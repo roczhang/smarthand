@@ -400,11 +400,24 @@ namespace app
         {
             FileStream fs = new FileStream(fileName, FileMode.Create);
             StreamWriter streamWriter = new StreamWriter(fs, Encoding.GetEncoding("gb2312"));
+
+            //step1:  write header
+
+            //,,普集街,卫生院（村卫生室或诊所）新型农村合作医疗门诊统筹补偿登记表,,,,,,,,,,,,,,,,,,,,,,,,
+            //2012,,,年                                  ,1,月,卫生院    （村卫生室或诊所 ）              ,,,代号,1119,,,,,,,,,,,,,,,,,
+            //,填报单位： （盖章）,,年                                  ,,,,,,,,,,,,,,,,,,,,,,,,
             //乡村名称	合疗证号	患者姓名	年龄	性别	就诊时间	诊 断	 总医药费	药品费	检查费	治疗费	材料费	自付	补偿
+            string line1 = @",,普集街,卫生院（村卫生室或诊所）新型农村合作医疗门诊统筹补偿登记表,,,,,,,,,,";
+            string line2 = @"2012,,,年                                  ,1,月,卫生院    （村卫生室或诊所 ）             ,,,代号,1119,,,";
+            string line3 = @",填报单位： （盖章）,,年                                  ,,,,,,,,,,";
+            string line4 = @"乡村名称,合疗证号,患者姓名,年龄,性别,就诊时间,总医药费,药品费,检查费,治疗费,材料费,自付,补偿,";
 
-            string header = @"乡村名称,合疗证号,患者姓名,年龄,性别,就诊时间,总医药费,药品费,检查费,治疗费,材料费,自付,补偿,";
-            streamWriter.WriteLine(header);
+            streamWriter.WriteLine(line1);
+            streamWriter.WriteLine(line2);
+            streamWriter.WriteLine(line3);
+            streamWriter.WriteLine(line4);
 
+            //write data
             foreach (Record r in m_recordList)
             {
                 streamWriter.WriteLine(r.ToString());
