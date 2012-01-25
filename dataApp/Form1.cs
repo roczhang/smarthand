@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using DataLibrary;
 using Datalibrary;
+using System.IO;
 
 namespace app
 {
@@ -17,19 +18,8 @@ namespace app
         private IList<Record> m_recordList;
         private Record m_currentRecord ;
         private int m_indicator = 0;
-        //private string m_name = "";
-        //private string m_no = "";
-        //private string m_address = "";
-        //private float m_age = 0.0f;
-        //private string m_sex = "";
+        private bool m_isCatched = false;
 
-        //private string m_currentData = DateTime.Today.ToShortDateString();
-
-        //private string m_diagose = "";
-
-        //private float m_allCost = 0.0f;
-        //private float m_selfPay = 0.0f;
-        //private float m_compenatecost = 0.0f;
 
         
         public Form1()
@@ -92,11 +82,12 @@ namespace app
        {
             if(e.KeyValue == 13 && ! String.IsNullOrEmpty(nameText.Text.Trim()))
             {
-                string name = nameText.Text.Trim();
+                m_currentRecord.Name = nameText.Text.Trim();
                 List<PeopleInfo> peopleList = new List<PeopleInfo>();
-                bool isExsited = m_smartbufferlist.Query(name, ref peopleList);
-                if (isExsited)
+                m_isCatched = m_smartbufferlist.Query(m_currentRecord.Name, ref peopleList);
+                if (m_isCatched)
                 {
+
                     SetCurrentRecord(peopleList.First());
                     
                     this.diagnosisText.Focus();
@@ -200,7 +191,7 @@ namespace app
                    string label = Indicator2Position(m_indicator) + "/" + m_recordList.Count.ToString();
                    UpdateIndicator(previous, current, next, label);
 
-                   // UpdateSmartBuffer();
+                   UpdateSmartBuffer();
                    ClearUI();
                    nameText.Focus();
                }
@@ -221,6 +212,13 @@ namespace app
           
             
 
+        }
+
+        private void UpdateSmartBuffer()
+        {
+           if( m_isCatched )
+               return;
+            m_smartbufferlist.AddRecord(m_currentRecord);
         }
 
         private void UpdateIndicator(int indicator)
@@ -379,6 +377,40 @@ namespace app
         private int Indicator2Position(int indicator)
         {
             return indicator + 1;
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "csv(*.csv)|*.csv";
+            sfd.AddExtension = true;
+            sfd.ValidateNames = true;
+            sfd.CheckPathExists = true; 
+
+            sfd.ShowDialog();
+            if(sfd.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = sfd.FileName;
+                SaveFile(fileName);
+            }
+        }
+
+        private void SaveFile(string fileName)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+            StreamWriter streamWriter = new StreamWriter(fs, Encoding.GetEncoding("gb2312"));
+            //乡村名称	合疗证号	患者姓名	年龄	性别	就诊时间	诊 断	 总医药费	药品费	检查费	治疗费	材料费	自付	补偿
+
+            string header = @"乡村名称,合疗证号,患者姓名,年龄,性别,就诊时间,总医药费,药品费,检查费,治疗费,材料费,自付,补偿,";
+            streamWriter.WriteLine(header);
+
+            foreach (Record r in m_recordList)
+            {
+                streamWriter.WriteLine(r.ToString());
+            }
+            streamWriter.Flush();
+            fs.Close();
         }
     }
 }

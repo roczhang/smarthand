@@ -107,6 +107,16 @@ namespace DataLibrary
         {
             return Name + " " + No + " " + AllCost.ToString() + " " + Compensation.ToString();
         }
+
+        public new string ToString()
+        { 
+            //乡村名称	合疗证号	患者姓名	年龄	性别	就诊时间	诊 断	 
+            //总医药费	药品费	检查费	治疗费	材料费	自付	补偿
+
+            return Address + "," + No + "," + Name + "," + Age.ToString() + "," + Sex + "," +
+                   Date + "," + Diagnose + "," + AllCost.ToString() + ",,,," + 
+                   SelfPay.ToString() +","+ Compensation.ToString()+",";
+        }
     }
 
 

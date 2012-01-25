@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DataLibrary;
 using LumenWorks.Framework.IO.Csv;
 using System.IO;
 
@@ -77,7 +78,7 @@ namespace Datalibrary
             }
         }
 
-        private  void AddRecord(PeopleInfo record)
+        public  void AddRecord(PeopleInfo record)
         {
  
             if ( m_people.ContainsKey( record.Name))
@@ -98,7 +99,8 @@ namespace Datalibrary
             else
             {
                 List<PeopleInfo> recordlist = new List<PeopleInfo>();
-                recordlist.Add(record);
+                PeopleInfo p = new PeopleInfo(record);
+                recordlist.Add(p);
                 m_people.Add(record.Name, recordlist);
             }
         }
@@ -131,5 +133,7 @@ namespace Datalibrary
             streamWriter.Flush();
             fs.Close();
         }
+
+
     }
 }
