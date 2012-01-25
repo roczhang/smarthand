@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DataLibrary;
 using Datalibrary;
 
 namespace app
@@ -13,22 +14,31 @@ namespace app
     public partial class Form1 : Form
     {
         private RecordStructure m_smartbufferlist;
+        private IList<Record> m_recordList;
+        private Record m_currentRecord ;
         private string m_name = "";
         private string m_no = "";
         private string m_address = "";
         private float m_age = 0.0f;
         private string m_sex = "";
 
-        //private DateTime m_dateTime = System.DateTime.Today();
         private string m_currentData = DateTime.Today.ToShortDateString();
+
+        private string m_diagose = "";
+
         private float m_allCost = 0.0f;
-        private float m_selfCost = 0.0f;
+        private float m_selfPay = 0.0f;
         private float m_compenatecost = 0.0f;
+
+        
         public Form1()
         {
             InitializeComponent();
+            // initialize the data
             string filePath = @"C:\Users\zhangroc\app\data\DB.csv";
             m_smartbufferlist = new RecordStructure(filePath);
+
+            m_recordList = new List<Record>();
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,10 +85,6 @@ namespace app
             this.sexText.Text = peopleInfo.m_sex;
             this.addressText.Text = peopleInfo.m_address;
         }
-
-
-
- 
 
         private void nameText_KeyUp(object sender, KeyEventArgs e)
         {
@@ -130,10 +136,10 @@ namespace app
                 //later the caclulation formular will change
                 if (m_allCost > 0)
                 {
-                    m_selfCost =  m_allCost*0.7f;
-                    m_compenatecost = m_allCost - m_selfCost;
+                    m_selfPay =  m_allCost*0.7f;
+                    m_compenatecost = m_allCost - m_selfPay;
 
-                    this.selfPayText.Text = m_selfCost.ToString();
+                    this.selfPayText.Text = m_selfPay.ToString();
                     this.compensatePayText.Text = m_compenatecost.ToString();
                     compensatePayText.Focus();
                 }
@@ -141,8 +147,6 @@ namespace app
 
             }
         }
-
-  
 
         private void compensatePayText_KeyUp(object sender, KeyEventArgs e)
         {
@@ -153,8 +157,8 @@ namespace app
                  if (  String.Compare(newValue, oldValue) != 0)
                  {
                      m_compenatecost = float.Parse(newValue);
-                     m_selfCost = m_allCost - m_compenatecost;
-                     selfPayText.Text = m_selfCost.ToString();
+                     m_selfPay = m_allCost - m_compenatecost;
+                     selfPayText.Text = m_selfPay.ToString();
                  }
                  NextRecord.Focus();
              }
@@ -170,7 +174,7 @@ namespace app
 
                ClearUI();
 
-               // SaveCurrentRecord();
+               SaveCurrentRecord();
 
                // UpdatePreviosButton();
 
@@ -180,6 +184,16 @@ namespace app
                
            }
             
+
+        }
+
+        private void SaveCurrentRecord()
+        {
+            Record r = new Record(m_name, m_no, m_age, m_address, m_sex,
+                m_diagose, m_allCost, m_selfPay, m_currentData);
+
+            m_currentRecord = r;
+            m_recordList.Add(r);
 
         }
 
