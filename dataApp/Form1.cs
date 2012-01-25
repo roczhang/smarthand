@@ -20,7 +20,7 @@ namespace app
         private string m_sex = "";
 
         //private DateTime m_dateTime = System.DateTime.Today();
-
+        private string m_currentData = DateTime.Today.ToShortDateString();
         private float m_allCost = 0.0f;
         private float m_selfCost = 0.0f;
         private float m_compenatecost = 0.0f;
@@ -158,6 +158,53 @@ namespace app
                  }
                  NextRecord.Focus();
              }
+        }
+
+        private void NextRecord_Click(object sender, EventArgs e)
+        {
+           
+           if( !String.IsNullOrEmpty(nameText.Text.Trim()) &&
+               !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
+               !String.IsNullOrEmpty(allCostText.Text.Trim()))
+           {
+
+               ClearUI();
+
+               // SaveCurrentRecord();
+
+               // UpdatePreviosButton();
+
+               // UpdateSerailStatus();
+
+               // UpdateSmartBuffer();
+               
+           }
+            
+
+        }
+
+        private void ClearUI()
+        {
+            this.nameText.Clear();
+            this.ageText.Clear();
+            this.sexText.Clear();
+            this.addressText.Clear();
+            this.numberText.Clear();
+
+            this.diagnosisText.Clear();
+            this.allCostText.Clear();
+            this.selfPayText.Clear();
+            this.compensatePayText.Clear();
+        }
+
+        private void calenderTimePicker_DragLeave(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void calenderTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            m_currentData = this.calenderTimePicker.Text;
         }
 
     }

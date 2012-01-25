@@ -203,6 +203,8 @@
             this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
             this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
+            this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
+            this.calenderTimePicker.DragLeave += new System.EventHandler(this.calenderTimePicker_DragLeave);
             // 
             // label7
             // 
@@ -300,6 +302,7 @@
             this.NextRecord.TabIndex = 20;
             this.NextRecord.Text = "下一个";
             this.NextRecord.UseVisualStyleBackColor = true;
+            this.NextRecord.Click += new System.EventHandler(this.NextRecord_Click);
             // 
             // PreviousRecord
             // 
