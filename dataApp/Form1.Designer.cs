@@ -204,7 +204,7 @@
             this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
             this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
-            this.calenderTimePicker.DragLeave += new System.EventHandler(this.calenderTimePicker_DragLeave);
+            //this.calenderTimePicker.DragLeave += new System.EventHandler(this.calenderTimePicker_DragLeave);
             // 
             // label7
             // 

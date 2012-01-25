@@ -197,11 +197,6 @@ namespace app
             this.compensatePayText.Clear();
         }
 
-        private void calenderTimePicker_DragLeave(object sender, EventArgs e)
-        {
-          
-        }
-
         private void calenderTimePicker_ValueChanged(object sender, EventArgs e)
         {
             m_currentData = this.calenderTimePicker.Text;
