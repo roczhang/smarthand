@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DataLibrary;
 using Datalibrary;
 using System.IO;
+using LumenWorks.Framework.IO.Csv;
 
 namespace app
 {
@@ -19,6 +20,9 @@ namespace app
         private Record m_currentRecord ;
         private int m_indicator = 0;
         private bool m_isCatched = false;
+
+        //filename for save
+        private string m_filepath;
 
 
         
@@ -36,12 +40,12 @@ namespace app
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DisableInput(true);
+            EnableInput(true);
             m_indicator = 0;
             this.nameText.Focus();
         }
 
-        public void DisableInput(bool enabled)
+        public void EnableInput(bool enabled)
         {
             this.nameText.Enabled    = enabled;
             this.ageText.Enabled     = enabled;
@@ -185,9 +189,9 @@ namespace app
                    m_indicator = m_recordList.Count - 1;
                    UpdateIndicator(m_indicator);
 
-                   Record previous = m_currentRecord;
-                   Record current = null;
-                   Record next = null;
+                   int previous = m_indicator;
+                   int current = -1;
+                   int next = -1;
                    string label = Indicator2Position(m_indicator) + "/" + m_recordList.Count.ToString();
                    UpdateIndicator(previous, current, next, label);
 
@@ -207,7 +211,7 @@ namespace app
                    next = m_recordList.Count - 1;
 
                string lableStatus = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count.ToString();
-               UpdateIndicator( m_recordList[previous], m_recordList[current],m_recordList[next], lableStatus);
+               UpdateIndicator( previous, current,next, lableStatus);
            }
           
             
@@ -218,7 +222,7 @@ namespace app
         {
            if( m_isCatched )
                return;
-            m_smartbufferlist.AddRecord(m_currentRecord);
+            m_smartbufferlist.AddRecord(m_currentRecord.People);
         }
 
         private void UpdateIndicator(int indicator)
@@ -235,17 +239,17 @@ namespace app
             //Record next = null;
         }
 
-        private void UpdateIndicator(Record previous, Record current, Record next, string label)
+        private void UpdateIndicator(int previous, int current, int next, string label)
         {
             UpdateInputUI(current);
-            if(! ReferenceEquals( previous, null))
+            if( previous > 0)
             {
-                PreviousRecord.Text = @"上一个: " + previous.BasicInfo(); 
+                PreviousRecord.Text = @"上一个: " + m_recordList[previous].BasicInfo(); 
             }
 
-            if( ! ReferenceEquals( next, null) )
+            if( next > 0 )
             {
-                NextRecord.Text = @"下一个: " + next.BasicInfo(); 
+                NextRecord.Text = @"下一个: " + m_recordList[next].BasicInfo(); 
             }
 
             if (! ReferenceEquals( label, null))
@@ -254,10 +258,12 @@ namespace app
             }
         }
 
-        private void UpdateInputUI(Record current)
+        private void UpdateInputUI(int position)
         {
-            if ( !ReferenceEquals(current,null))
+            if (position >= 0)
             {
+                Record current = m_recordList[position];
+
                 nameText.Text = current.Name;
                 numberText.Text = current.No;
                 ageText.Text = current.Age.ToString();
@@ -343,9 +349,91 @@ namespace app
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //initialize the m_indicator which will point the last node of poeple
-            //add the previousrecordbutton
-            m_indicator = 0;
+            //step1 open file and save the filepath
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "csv(*.csv)|*.csv|all(*.*)|*.*";
+            
+            if ( !String.IsNullOrEmpty(m_filepath))
+                ofd.InitialDirectory = m_filepath;
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                m_filepath = ofd.FileName;
+            }
+
+
+            //step2 initialize the recordlist
+            ReaderCSV(m_filepath);
+            m_currentRecord = m_recordList.Last();
+
+            //step3 update UI
+            if( m_recordList.Count > 0)
+            {
+                m_indicator = m_recordList.Count - 1;
+                UpdateInputUI(m_indicator);
+
+                //step4 update the indicator
+                int previous = m_indicator - 1;
+                if (previous < 0)
+                    previous = 0;
+
+                //step5 update the indicator
+                int next = -1; // don't initial the next button
+
+                string label = m_indicator.ToString() + "/" + m_recordList.Count.ToString();
+                UpdateIndicator(previous, m_indicator, next, label);
+            }
+
+            //enable UI
+            EnableInput(true);
+
+        }
+
+        private void ReaderCSV(string filePath)
+        {
+            string path = Path.GetDirectoryName(filePath);
+            if ( !Directory.Exists(path))
+                return;
+
+            // open the file "data.csv" which is a CSV file with headers
+            using (CsvReader csv =
+                   new CsvReader(new StreamReader(filePath, Encoding.GetEncoding("gb2312")), true))
+            {
+                int fieldCount = csv.FieldCount;
+
+                int igore = 3; // igore the first 4 line ( 0 , 1, 2, 3)
+                while (csv.ReadNextRecord())
+                {
+                   if (igore > 0) // igore header in the first 4 lines
+                    {
+                        igore--;
+                        continue;
+                    }
+                          
+                    // create one record
+                   // //乡村名称	合疗证号	患者姓名	年龄	性别	就诊时间	诊 断	 总医药费	药品费	检查费	治疗费	材料费	自付	补偿
+          
+                    string address = csv[0].Trim().Replace("?","");
+                    string no = csv[1].Trim().Replace("?","");
+                    string name = csv[2].Trim().Replace("?","");
+
+                    if ( string.IsNullOrEmpty(address) || string.IsNullOrEmpty(no) || string.IsNullOrEmpty(name))
+                        continue;
+
+                    float age = float.Parse(csv[3].Trim().Replace("?",""));
+                    string sex = csv[4].Trim().Replace("?","");
+                    PeopleInfo p = new PeopleInfo(name,no,age,address,sex);
+
+                    string date = csv[5].Trim().Replace("?","");
+                    string diagose = csv[6].Trim().Replace("?","");
+                    float allcost = float.Parse(csv[7].Trim().Replace("?",""));
+                    //float selfPay = csv[12];
+                    float compenation = float.Parse(csv[13].Trim().Replace("?",""));
+
+                    Record r = new Record(p,diagose,allcost,compenation,date);
+                    m_recordList.Add(r);
+                }
+                
+            }
         }
 
         private void PreviousRecord_Click(object sender, EventArgs e)
@@ -371,7 +459,7 @@ namespace app
             }
 
             string label = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count;
-            UpdateIndicator(m_recordList[previous], m_recordList[current], m_recordList[next], label);
+            UpdateIndicator(previous, current, next, label);
         }
 
         private int Indicator2Position(int indicator)
@@ -407,10 +495,12 @@ namespace app
             //2012,,,年                                  ,1,月,卫生院    （村卫生室或诊所 ）              ,,,代号,1119,,,,,,,,,,,,,,,,,
             //,填报单位： （盖章）,,年                                  ,,,,,,,,,,,,,,,,,,,,,,,,
             //乡村名称	合疗证号	患者姓名	年龄	性别	就诊时间	诊 断	 总医药费	药品费	检查费	治疗费	材料费	自付	补偿
-            string line1 = @",,普集街,卫生院（村卫生室或诊所）新型农村合作医疗门诊统筹补偿登记表,,,,,,,,,,";
-            string line2 = @"2012,,,年                                  ,1,月,卫生院    （村卫生室或诊所 ）             ,,,代号,1119,,,";
+            string line1 = @",,普集街,卫生院（村卫生室或诊所）新型农村合作医疗门诊统筹补偿登记表,,,,,,,,,,,";
+            string line2 = @"2012,,,年                                  ,1,月,卫生院    （村卫生室或诊所 ）             ,,,,代号,1119,,,";
             string line3 = @",填报单位： （盖章）,,年                                  ,,,,,,,,,,";
-            string line4 = @"乡村名称,合疗证号,患者姓名,年龄,性别,就诊时间,总医药费,药品费,检查费,治疗费,材料费,自付,补偿,";
+
+                            //普中, 0110130030345,赵麦芳,80,女, 2012/1/14,高冠心,17.70 ,,,,,5.70 ,12.00 ,,,,,,,,,,,,,,
+            string line4 = @"乡村名称,合疗证号,患者姓名,年龄,性别,就诊时间,诊断,总医药费,药品费,检查费,治疗费,材料费,自付,补偿,,";
 
             streamWriter.WriteLine(line1);
             streamWriter.WriteLine(line2);

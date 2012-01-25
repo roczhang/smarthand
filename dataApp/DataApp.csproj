@@ -84,6 +84,10 @@
       <Project>{4E66F7B2-B9D6-4E08-B9DD-0350231B4637}</Project>
       <Name>DataLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LumenWorks.Framework.IO\LunmenWorks.Framework.IO.csproj">
+      <Project>{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}</Project>
+      <Name>LunmenWorks.Framework.IO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

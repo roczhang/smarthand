@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Datalibrary
 {
-   public class PeopleInfo
+   public struct PeopleInfo
     {
        public PeopleInfo(string name, string no, float age, string address, string sex)
         {
@@ -25,9 +25,6 @@ namespace Datalibrary
            m_sex = p.Sex;
        }
 
-       public  PeopleInfo()
-       {
-       }
 
        public static bool operator ==(PeopleInfo left, PeopleInfo right)
         {
@@ -81,10 +78,19 @@ namespace Datalibrary
            set { m_sex = value; }
 
        }
-        private string m_name="";
-        private string m_no = "";
-        private float m_age = 0;
-        private string m_address = "";
-        private string m_sex = "";
+
+       public void Clear()
+       {
+           m_name = "";
+           m_no = "";
+           m_age = 0.0f;
+           m_address = "";
+           m_sex = "";
+       }
+       private string m_name;
+       private string m_no;
+       private float m_age;
+       private string m_address;
+       private string m_sex;
     }
 }
