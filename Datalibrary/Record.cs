@@ -27,7 +27,17 @@ namespace DataLibrary
             m_date = date;
         }
 
-        public Record() : base("", "", 0.0f, "", "")
+        public Record(Record record)
+        {
+            this.People = record.People;
+            m_diagnose = record.Diagnose;
+            m_allcost = record.AllCost;
+            m_compensation = record.Compensation;
+            m_date = record.Date;
+
+        }
+
+        public Record() 
         {
 
         }
@@ -36,7 +46,7 @@ namespace DataLibrary
         private float m_allcost = 0;
         private float m_compensation = 0;
         private string m_date = "";
-        //private float m_compensatePay
+        
 
         public string Diagnose
         {
@@ -91,6 +101,11 @@ namespace DataLibrary
             this.Diagnose = "";
             this.AllCost = 0.0f;
             this.Compensation = 0.0f;
+        }
+
+        public  string BasicInfo()
+        {
+            return Name + " " + No + " " + AllCost.ToString() + " " + Compensation.ToString();
         }
     }
 

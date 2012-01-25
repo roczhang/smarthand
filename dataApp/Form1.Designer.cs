@@ -53,7 +53,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.NextRecord = new System.Windows.Forms.Button();
             this.PreviousRecord = new System.Windows.Forms.Button();
-            this.CurrentRecordLabel = new System.Windows.Forms.Label();
+            this.indicatorLable = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -316,15 +316,16 @@
             this.PreviousRecord.TabIndex = 11;
             this.PreviousRecord.Text = "上一个";
             this.PreviousRecord.UseVisualStyleBackColor = true;
+            this.PreviousRecord.Click += new System.EventHandler(this.PreviousRecord_Click);
             // 
-            // CurrentRecordLabel
+            // indicatorLable
             // 
-            this.CurrentRecordLabel.AutoSize = true;
-            this.CurrentRecordLabel.Location = new System.Drawing.Point(288, 447);
-            this.CurrentRecordLabel.Name = "CurrentRecordLabel";
-            this.CurrentRecordLabel.Size = new System.Drawing.Size(24, 13);
-            this.CurrentRecordLabel.TabIndex = 22;
-            this.CurrentRecordLabel.Text = "0/0";
+            this.indicatorLable.AutoSize = true;
+            this.indicatorLable.Location = new System.Drawing.Point(288, 447);
+            this.indicatorLable.Name = "indicatorLable";
+            this.indicatorLable.Size = new System.Drawing.Size(24, 13);
+            this.indicatorLable.TabIndex = 22;
+            this.indicatorLable.Text = "0/0";
             // 
             // contextMenuStrip1
             // 
@@ -387,32 +388,33 @@
             // NewToolStripMenuItem
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.NewToolStripMenuItem.Text = "新建";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem1.Text = "打开";
+            this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "保存";
             // 
             // recentOpenToolStripMenuItem
             // 
             this.recentOpenToolStripMenuItem.Name = "recentOpenToolStripMenuItem";
-            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.recentOpenToolStripMenuItem.Text = "最近打开";
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem1.Text = "退出";
             // 
             // statisticsToolStripMenuItem
@@ -456,7 +458,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 496);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.CurrentRecordLabel);
+            this.Controls.Add(this.indicatorLable);
             this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
             this.Controls.Add(this.groupBox2);
@@ -502,7 +504,7 @@
         private System.Windows.Forms.Button PreviousRecord;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox diagnosisText;
-        private System.Windows.Forms.Label CurrentRecordLabel;
+        private System.Windows.Forms.Label indicatorLable;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;

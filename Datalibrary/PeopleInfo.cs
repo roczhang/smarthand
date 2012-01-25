@@ -16,6 +16,19 @@ namespace Datalibrary
             m_sex = sex;
         }
 
+       public PeopleInfo(PeopleInfo p)
+       {
+           m_name = p.Name;
+           m_no = p.No;
+           m_address = p.Address;
+           m_age = p.Age;
+           m_sex = p.Sex;
+       }
+
+       public  PeopleInfo()
+       {
+       }
+
        public static bool operator ==(PeopleInfo left, PeopleInfo right)
         {
             if( left.m_name == right.m_name && left.m_no == right.m_no)

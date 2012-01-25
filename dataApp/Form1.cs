@@ -16,6 +16,7 @@ namespace app
         private RecordStructure m_smartbufferlist;
         private IList<Record> m_recordList;
         private Record m_currentRecord ;
+        private int m_indicator = 0;
         //private string m_name = "";
         //private string m_no = "";
         //private string m_address = "";
@@ -46,6 +47,7 @@ namespace app
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DisableInput(true);
+            m_indicator = 0;
             this.nameText.Focus();
         }
 
@@ -87,7 +89,7 @@ namespace app
         }
 
         private void nameText_KeyUp(object sender, KeyEventArgs e)
-        {
+       {
             if(e.KeyValue == 13 && ! String.IsNullOrEmpty(nameText.Text.Trim()))
             {
                 string name = nameText.Text.Trim();
@@ -179,31 +181,104 @@ namespace app
         private void NextRecord_Click(object sender, EventArgs e)
         {
            
-           if( !String.IsNullOrEmpty(nameText.Text.Trim()) &&
-               !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
-               !String.IsNullOrEmpty(allCostText.Text.Trim()))
+           
+           // create the new record
+           if ( m_recordList.Count == 0 || m_indicator == m_recordList.Count -1  )
            {
-                          
+               if (!String.IsNullOrEmpty(nameText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(allCostText.Text.Trim()))
+               {
+                  
+                   SaveCurrentRecord();
+                   m_indicator = m_recordList.Count - 1;
+                   UpdateIndicator(m_indicator);
 
+                   Record previous = m_currentRecord;
+                   Record current = null;
+                   Record next = null;
+                   string label = Indicator2Position(m_indicator) + "/" + m_recordList.Count.ToString();
+                   UpdateIndicator(previous, current, next, label);
 
-               SaveCurrentRecord();
-
-               // UpdatePreviosButton();
-
-               // UpdateSerailStatus();
-
-               // UpdateSmartBuffer();
-
-               ClearUI();
-               
+                   // UpdateSmartBuffer();
+                   ClearUI();
+                   nameText.Focus();
+               }
            }
+           else
+           {
+               m_indicator++;
+
+               int current = m_indicator;
+               int previous = m_indicator - 1;
+               int next = m_indicator + 1;
+               if ( next > m_recordList.Count - 1)
+                   next = m_recordList.Count - 1;
+
+               string lableStatus = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count.ToString();
+               UpdateIndicator( m_recordList[previous], m_recordList[current],m_recordList[next], lableStatus);
+           }
+          
             
 
         }
 
+        private void UpdateIndicator(int indicator)
+        {
+            if( m_recordList.Count == 0 )
+                return;
+            
+            //if( indicator == 0 )
+            //{
+            //    UpdateIndicator()
+            //}
+            //Record previous = m_currentRecord;
+            //Record current = null;
+            //Record next = null;
+        }
+
+        private void UpdateIndicator(Record previous, Record current, Record next, string label)
+        {
+            UpdateInputUI(current);
+            if(! ReferenceEquals( previous, null))
+            {
+                PreviousRecord.Text = @"上一个: " + previous.BasicInfo(); 
+            }
+
+            if( ! ReferenceEquals( next, null) )
+            {
+                NextRecord.Text = @"下一个: " + next.BasicInfo(); 
+            }
+
+            if (! ReferenceEquals( label, null))
+            {
+                indicatorLable.Text = label;            
+            }
+        }
+
+        private void UpdateInputUI(Record current)
+        {
+            if ( !ReferenceEquals(current,null))
+            {
+                nameText.Text = current.Name;
+                numberText.Text = current.No;
+                ageText.Text = current.Age.ToString();
+                sexText.Text = current.Sex;
+                addressText.Text = current.Address;
+
+                calenderTimePicker.Text = current.Date;
+
+                diagnosisText.Text = current.Diagnose;
+                allCostText.Text = current.AllCost.ToString();
+                compensatePayText.Text = current.Compensation.ToString();
+                selfPayText.Text = current.SelfPay.ToString();
+            }
+        }
+       
         private void SaveCurrentRecord()
         {
-            m_recordList.Add(m_currentRecord);
+            Record r =new Record(m_currentRecord);
+            m_recordList.Add(r);
         }
 
         private void ClearUI()
@@ -268,7 +343,42 @@ namespace app
             }
         }
 
+        private void openToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //initialize the m_indicator which will point the last node of poeple
+            //add the previousrecordbutton
+            m_indicator = 0;
+        }
 
+        private void PreviousRecord_Click(object sender, EventArgs e)
+        {
+            m_indicator--;
 
+            int current = 0;
+            int next = 0;
+            int previous = 0;
+            if( m_indicator == -1 )
+            {
+                m_indicator = 0;
+                previous = current = m_indicator;
+                next = current + 1;
+            }
+            else
+            {
+                current = m_indicator;
+                previous = m_indicator - 1;
+                if (previous == -1)
+                    previous = 0;
+                next = m_indicator + 1;
+            }
+
+            string label = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count;
+            UpdateIndicator(m_recordList[previous], m_recordList[current], m_recordList[next], label);
+        }
+
+        private int Indicator2Position(int indicator)
+        {
+            return indicator + 1;
+        }
     }
 }
