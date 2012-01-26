@@ -39,9 +39,7 @@
             this.sexText = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.numberText = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.calenderTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.allCostText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -71,6 +69,8 @@
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calenderTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.SaveAsStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -167,15 +167,6 @@
             this.numberText.TabIndex = 2;
             this.numberText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numberText_KeyUp);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(445, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "日期";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.sexText);
@@ -193,18 +184,6 @@
             this.groupBox1.Size = new System.Drawing.Size(243, 320);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            // 
-            // calenderTimePicker
-            // 
-            this.calenderTimePicker.AllowDrop = true;
-            this.calenderTimePicker.Enabled = false;
-            this.calenderTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.calenderTimePicker.Location = new System.Drawing.Point(497, 2);
-            this.calenderTimePicker.Name = "calenderTimePicker";
-            this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
-            this.calenderTimePicker.TabIndex = 6;
-            this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
-            this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
             // 
             // label7
             // 
@@ -270,7 +249,7 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.allCostText);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(328, 22);
+            this.groupBox2.Location = new System.Drawing.Point(325, 53);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(199, 226);
             this.groupBox2.TabIndex = 19;
@@ -377,6 +356,7 @@
             this.NewToolStripMenuItem,
             this.openToolStripMenuItem1,
             this.toolStripMenuItem1,
+            this.SaveAsStripMenuItem2,
             this.recentOpenToolStripMenuItem,
             this.exitToolStripMenuItem1});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
@@ -386,35 +366,36 @@
             // NewToolStripMenuItem
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.NewToolStripMenuItem.Text = "新建";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem1.Text = "打开";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "保存";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // recentOpenToolStripMenuItem
             // 
             this.recentOpenToolStripMenuItem.Name = "recentOpenToolStripMenuItem";
-            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.recentOpenToolStripMenuItem.Text = "最近打开";
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem1.Text = "退出";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
             // statisticsToolStripMenuItem
             // 
@@ -451,19 +432,37 @@
             this.InfoToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.InfoToolStripMenuItem.Text = "作者及版权";
             // 
+            // calenderTimePicker
+            // 
+            this.calenderTimePicker.AllowDrop = true;
+            this.calenderTimePicker.Enabled = false;
+            this.calenderTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.calenderTimePicker.Location = new System.Drawing.Point(12, 386);
+            this.calenderTimePicker.Name = "calenderTimePicker";
+            this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
+            this.calenderTimePicker.TabIndex = 6;
+            this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
+            this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
+            // 
+            // SaveAsStripMenuItem2
+            // 
+            this.SaveAsStripMenuItem2.Name = "SaveAsStripMenuItem2";
+            this.SaveAsStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.SaveAsStripMenuItem2.Text = "另存...";
+            this.SaveAsStripMenuItem2.Click += new System.EventHandler(this.SaveAsStripMenuItem2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 496);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.indicatorLable);
             this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.calenderTimePicker);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.calenderTimePicker);
+            this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "农村医疗合作信息录入助手";
@@ -491,9 +490,7 @@
         private System.Windows.Forms.TextBox sexText;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox numberText;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DateTimePicker calenderTimePicker;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox allCostText;
         private System.Windows.Forms.Label label8;
@@ -523,6 +520,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem InfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.DateTimePicker calenderTimePicker;
+        private System.Windows.Forms.ToolStripMenuItem SaveAsStripMenuItem2;
     }
 }
 

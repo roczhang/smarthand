@@ -22,7 +22,7 @@ namespace Datalibrary
 
          ~RecordStructure()
         {
-            SaveFile(m_filePath);
+        SaveFile(m_filePath);
         }
         public Boolean Query(string name, ref List<PeopleInfo> recordlist )
         {

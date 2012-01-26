@@ -23,6 +23,7 @@ namespace app
 
         //filename for save
         private string m_filepath;
+        private bool m_fileChanged = false; // check if user input new date
 
 
         
@@ -36,6 +37,8 @@ namespace app
             m_recordList = new List<Record>();
             m_currentRecord = new Record();
             m_currentRecord.Date = DateTime.Today.ToShortDateString();
+
+            PreviousRecord.Enabled = false;
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,7 +64,8 @@ namespace app
             this.compensatePayText.Enabled = enabled;
 
             this.NextRecord.Enabled     = enabled;
-            this.PreviousRecord.Enabled = enabled;
+            //// diable the previous function 
+            //this.PreviousRecord.Enabled = enabled; 
             
 
         }
@@ -270,7 +274,17 @@ namespace app
                    !String.IsNullOrEmpty(allCostText.Text.Trim()))
                {
                   
+                   //when open exsite file ,the current text box display the last record from m_recordlist
+                   //Now add the record it will create duplicate code.
+                   if(String.IsNullOrEmpty(m_currentRecord.Name))
+                   {
+                       ClearUI(); 
+                       return;
+                   }
+
                    SaveCurrentRecord();
+                   m_fileChanged = true;
+                   
                    m_indicator = m_recordList.Count - 1;
                    UpdateIndicator(m_indicator);
 
@@ -327,9 +341,11 @@ namespace app
         private void UpdateIndicator(int previous, int current, int next, string label)
         {
             UpdateInputUI(current);
-            if( previous > 0)
+            if( previous >= 0)
             {
-                PreviousRecord.Text = @"上一个: " + m_recordList[previous].BasicInfo(); 
+                PreviousRecord.Text = @"上一个: " + m_recordList[previous].BasicInfo();
+                //PreviousRecord.Text = m_recordList[previous].BasicInfo();
+                
             }
 
             if( next > 0 )
@@ -464,7 +480,7 @@ namespace app
 
             //step2 initialize the recordlist
             ReaderCSV(m_filepath);
-            m_currentRecord = m_recordList.Last();
+            //m_currentRecord = m_recordList.Last();
 
             //step3 update UI
             if( m_recordList.Count > 0)
@@ -480,7 +496,7 @@ namespace app
                 //step5 update the indicator
                 int next = -1; // don't initial the next button
 
-                string label = m_indicator.ToString() + "/" + m_recordList.Count.ToString();
+                string label = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count.ToString();
                 UpdateIndicator(previous, m_indicator, next, label);
             }
 
@@ -550,17 +566,19 @@ namespace app
                 m_indicator = 0;
                 previous = current = m_indicator;
                 next = current + 1;
+                if (next > m_recordList.Count - 1)
+                    next = m_recordList.Count - 1; 
             }
             else
             {
-                current = m_indicator;
-                previous = m_indicator - 1;
+                current = m_indicator + 1;
+                previous = m_indicator;
                 if (previous == -1)
                     previous = 0;
 
-                next = m_indicator + 1;
-                if (next > m_recordList.Count - 1)
-                    next = m_recordList.Count - 1;
+                next = m_indicator + 2;
+                if (next >= m_recordList.Count - 1)
+                    next = -1;
 
                 
             }
@@ -577,6 +595,20 @@ namespace app
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
+            if(String.IsNullOrEmpty(m_filepath))
+            {
+                GetFilePath();
+            }
+
+            if (!String.IsNullOrEmpty(m_filepath))
+            {
+                SaveFile(m_filepath);
+                m_fileChanged = false;
+            }
+        }
+
+        private void GetFilePath()
+        {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "csv(*.csv)|*.csv";
             sfd.AddExtension = true;
@@ -586,8 +618,7 @@ namespace app
             sfd.ShowDialog();
             if(sfd.ShowDialog() == DialogResult.OK)
             {
-                string fileName = sfd.FileName;
-                SaveFile(fileName);
+                m_filepath = sfd.FileName;
             }
         }
 
@@ -621,6 +652,37 @@ namespace app
             }
             streamWriter.Flush();
             fs.Close();
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // create new file and input data but no save so far
+            if(( String.IsNullOrEmpty(m_filepath) && m_recordList.Count != 0 ) ||
+                 m_fileChanged == true)
+            {
+              
+                if (MessageBox.Show("还没有保存文件，需要退出吗?","保存提示", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            
+
+            //releaes the system resource
+
+            Application.Exit();
+
+            // system will automate to save the smart buffer to file.
+        }
+
+        private void SaveAsStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            GetFilePath();
+            if(!String.IsNullOrEmpty(m_filepath))
+            {
+                SaveFile(m_filepath);
+                m_fileChanged = false;
+            }
         }
     }
 }
