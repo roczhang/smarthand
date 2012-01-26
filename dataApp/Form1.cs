@@ -714,5 +714,23 @@ namespace app
         {
             MessageBox.Show("作者：张亚光 \r\n推广者： 张美红 张光", "作者介绍", MessageBoxButtons.OK);
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // create new file and input data but no save so far
+            if ((String.IsNullOrEmpty(m_filepath) && m_recordList.Count != 0) ||
+                 m_fileChanged == true)
+            {
+
+                if (MessageBox.Show("还没有保存文件，需要退出吗?", "保存提示", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+
+                }
+            }
+        }
+
+
     }
 }

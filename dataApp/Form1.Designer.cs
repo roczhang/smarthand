@@ -62,6 +62,7 @@
             this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAsStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.recentOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +71,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calenderTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.SaveAsStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -366,34 +366,41 @@
             // NewToolStripMenuItem
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.NewToolStripMenuItem.Text = "新建";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.openToolStripMenuItem1.Text = "打开";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem1.Text = "保存";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // SaveAsStripMenuItem2
+            // 
+            this.SaveAsStripMenuItem2.Name = "SaveAsStripMenuItem2";
+            this.SaveAsStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.SaveAsStripMenuItem2.Text = "另存...";
+            this.SaveAsStripMenuItem2.Click += new System.EventHandler(this.SaveAsStripMenuItem2_Click);
             // 
             // recentOpenToolStripMenuItem
             // 
             this.recentOpenToolStripMenuItem.Name = "recentOpenToolStripMenuItem";
-            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.recentOpenToolStripMenuItem.Text = "最近打开";
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.exitToolStripMenuItem1.Text = "退出";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
@@ -409,14 +416,14 @@
             // statisticsPageToolStripMenuItem
             // 
             this.statisticsPageToolStripMenuItem.Name = "statisticsPageToolStripMenuItem";
-            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.statisticsPageToolStripMenuItem.Text = "统计页";
             this.statisticsPageToolStripMenuItem.Click += new System.EventHandler(this.statisticsPageToolStripMenuItem_Click);
             // 
             // SettingToolStripMenuItem
             // 
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
-            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.SettingToolStripMenuItem.Text = "设置";
             this.SettingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
@@ -431,7 +438,7 @@
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.InfoToolStripMenuItem.Text = "作者及版权";
             this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
@@ -446,13 +453,6 @@
             this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
             this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
-            // 
-            // SaveAsStripMenuItem2
-            // 
-            this.SaveAsStripMenuItem2.Name = "SaveAsStripMenuItem2";
-            this.SaveAsStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.SaveAsStripMenuItem2.Text = "另存...";
-            this.SaveAsStripMenuItem2.Click += new System.EventHandler(this.SaveAsStripMenuItem2_Click);
             // 
             // Form1
             // 
@@ -469,6 +469,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "农村医疗合作信息录入助手";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
