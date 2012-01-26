@@ -734,8 +734,7 @@ namespace app
         private void introductionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show( "农村医疗合作信息录入助手简介：\r\n"+ @"该软件简称:'小助手'，"+
-                "帮你快速实现医疗信息录入并声称报表，其特点准确，高效，\r\n" +
-                "让你轻松跨越数字鸿沟！",
+                "帮你快速实现医疗信息录入并声称报表，其特点准确，高效。" + "让你轻松跨越数字鸿沟！",
                 "软件介绍", MessageBoxButtons.OK);
 
         }
