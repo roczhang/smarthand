@@ -71,6 +71,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calenderTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.introductionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -430,7 +431,8 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.InfoToolStripMenuItem});
+            this.InfoToolStripMenuItem,
+            this.introductionToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.aboutToolStripMenuItem.Text = "关于";
@@ -438,7 +440,7 @@
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.InfoToolStripMenuItem.Text = "作者及版权";
             this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
@@ -453,6 +455,13 @@
             this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
             this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
+            // 
+            // introductionToolStripMenuItem
+            // 
+            this.introductionToolStripMenuItem.Name = "introductionToolStripMenuItem";
+            this.introductionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.introductionToolStripMenuItem.Text = "软件介绍";
+            this.introductionToolStripMenuItem.Click += new System.EventHandler(this.introductionToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -526,6 +535,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.DateTimePicker calenderTimePicker;
         private System.Windows.Forms.ToolStripMenuItem SaveAsStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem introductionToolStripMenuItem;
     }
 }
 
