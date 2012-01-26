@@ -121,25 +121,22 @@ namespace app
         {
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(allCostText.Text.Trim()))
             {
-                //try
-                //{
-                //    m_allCost = float.TryParse(this.allCostText.Text.Trim());
-                //}
-                //catch (Exception)
-                //{
-                //    MessageBox("总费用是数值");
-                //}
-
-                m_currentRecord.AllCost = float.Parse(this.allCostText.Text.Trim());
-
+                
+                float allcost = float.Parse(this.allCostText.Text.Trim());
+                
                 //later the caclulation formular will change
-                if (m_currentRecord.AllCost > 0)
+                if ( allcost > 0)
                 {
-                    m_currentRecord.Compensation = m_currentRecord.AllCost * 0.7f;
-                    //m_currentRecord.SelfPaym_compenatecost = m_currentRecord.AllCost - m_currentRecord.SelfPay;
+                    CostFormular cf = new CostFormular(allcost);
 
-                    this.selfPayText.Text = m_currentRecord.SelfPay.ToString();
-                    this.compensatePayText.Text = m_currentRecord.Compensation.ToString();
+                    m_currentRecord.AllCost = cf.AllCost;
+                    m_currentRecord.Compensation = cf.Compentation;
+
+
+                    this.allCostText.Text = m_currentRecord.AllCost.ToString("F2");
+                    this.selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                    this.compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+
                     compensatePayText.Focus();
                 }
 
@@ -156,7 +153,7 @@ namespace app
                  if (  String.Compare(newValue, oldValue) != 0)
                  {
                      m_currentRecord.Compensation = float.Parse(newValue);
-                     selfPayText.Text = m_currentRecord.SelfPay.ToString();
+                     selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
                  }
                  NextRecord.Focus();
              }
@@ -456,7 +453,12 @@ namespace app
                 previous = m_indicator - 1;
                 if (previous == -1)
                     previous = 0;
+
                 next = m_indicator + 1;
+                if (next > m_recordList.Count - 1)
+                    next = m_recordList.Count - 1;
+
+                
             }
 
             string label = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count;
