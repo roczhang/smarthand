@@ -170,7 +170,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 260);
+            this.label6.Location = new System.Drawing.Point(445, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 10;
@@ -183,11 +183,9 @@
             this.groupBox1.Controls.Add(this.ageText);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.addressText);
-            this.groupBox1.Controls.Add(this.calenderTimePicker);
             this.groupBox1.Controls.Add(this.numberText);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.nameText);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(29, 21);
@@ -201,7 +199,7 @@
             this.calenderTimePicker.AllowDrop = true;
             this.calenderTimePicker.Enabled = false;
             this.calenderTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.calenderTimePicker.Location = new System.Drawing.Point(93, 253);
+            this.calenderTimePicker.Location = new System.Drawing.Point(497, 2);
             this.calenderTimePicker.Name = "calenderTimePicker";
             this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
             this.calenderTimePicker.TabIndex = 6;
@@ -388,34 +386,34 @@
             // NewToolStripMenuItem
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.NewToolStripMenuItem.Text = "新建";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.openToolStripMenuItem1.Text = "打开";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem1.Text = "保存";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // recentOpenToolStripMenuItem
             // 
             this.recentOpenToolStripMenuItem.Name = "recentOpenToolStripMenuItem";
-            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recentOpenToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.recentOpenToolStripMenuItem.Text = "最近打开";
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.exitToolStripMenuItem1.Text = "退出";
             // 
             // statisticsToolStripMenuItem
@@ -463,7 +461,9 @@
             this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.calenderTimePicker);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label6);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "农村医疗合作信息录入助手";

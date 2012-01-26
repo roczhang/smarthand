@@ -122,52 +122,140 @@ namespace app
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(allCostText.Text.Trim()))
             {
                 
-                float allcost = float.Parse(this.allCostText.Text.Trim());
-                
-                //later the caclulation formular will change
-                if ( allcost > 0)
+                float allcost;
+                if(!float.TryParse(this.allCostText.Text.Trim(),out allcost))
                 {
-                    CostFormular cf = new CostFormular(allcost);
-
-                    m_currentRecord.AllCost = cf.AllCost;
-                    m_currentRecord.Compensation = cf.Compentation;
-
-
-                    this.allCostText.Text = m_currentRecord.AllCost.ToString("F2");
-                    this.selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
-                    this.compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-
-                    compensatePayText.Focus();
+                    ShowMesage(@"总费用应该是数字");
+                    allCostText.Text = "";
+                    allCostText.Focus();
+                    return;
+                }
+                if (!ValidateMorethanZero(allcost))
+                {
+                    ShowMesage(@"总费用不能小于0！");
+                    allCostText.Text = "";
+                    allCostText.Focus();
+                    return;
                 }
 
+                CostFormular cf = new CostFormular(allcost);
 
+                m_currentRecord.AllCost = cf.AllCost;
+                m_currentRecord.Compensation = cf.Compentation;
+
+
+                this.allCostText.Text = m_currentRecord.AllCost.ToString("F2");
+                this.selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                this.compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+
+                compensatePayText.Focus();
             }
+        }
+
+        private void ShowMesage(string val)
+        {
+            if (!String.IsNullOrEmpty(val))
+            {
+                MessageBox.Show(val);
+            }
+               
         }
 
         private void compensatePayText_KeyUp(object sender, KeyEventArgs e)
         {
+
+
              if (e.KeyValue == 13 && !String.IsNullOrEmpty(compensatePayText.Text.Trim()))
              {
                  string newValue = compensatePayText.Text.Trim();
                  string oldValue = m_currentRecord.Compensation.ToString();
+    
                  if (  String.Compare(newValue, oldValue) != 0)
                  {
-                     m_currentRecord.Compensation = float.Parse(newValue);
+                     float newVal;
+                     if(!float.TryParse(newValue,out newVal))
+                     {
+                         ShowMesage(@"总费用应该是数字");
+                         compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                         compensatePayText.Focus();
+                         return;
+                     }
+
+                     if (! ValidateMorethanZero(newVal))
+                     {
+                         ShowMesage(@"补偿费应该大于0");
+                         compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                         compensatePayText.Focus();
+                         return;
+                     }
+
+                     if (newVal - m_currentRecord.AllCost > 0)
+                     {
+                         ShowMesage("补偿费("+newVal.ToString("F2")+")不能大于总费用("+m_currentRecord.AllCost.ToString("F2")+")!");
+                         compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                         compensatePayText.Focus();
+                         return;
+                     }
+
+                     m_currentRecord.Compensation = newVal;
+                     compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
                      selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
                  }
-                 NextRecord.Focus();
+                 
+                  NextRecord.Focus();
+
              }
+        }
+
+        private bool ValidateMorethanZero(float val)
+        {
+            return val > 0.0f;
         }
 
         private void selfPayText_KeyUp(object sender, KeyEventArgs e)
         {
+
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(selfPayText.Text.Trim()))
             {
-                float selfPay = float.Parse(selfPayText.Text.Trim());
-                m_currentRecord.Compensation = m_currentRecord.AllCost - selfPay;
+                float selfPay;
+                string newValue = selfPayText.Text.Trim();
+                string oldValue = m_currentRecord.SelfPay.ToString();
+                if (String.Compare(newValue, oldValue) != 0)
+                {
+                    if (!float.TryParse(selfPayText.Text.Trim(), out selfPay))
+                    {
+                        ShowMesage(@"总费用应该是数字");
+                        selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                        selfPayText.Focus();
+                        return;
+                    }
 
-                compensatePayText.Text = m_currentRecord.Compensation.ToString();
+                    if (!ValidateMorethanZero(selfPay))
+                    {
+                        ShowMesage(@"自付费用不能小于0！");
+                        selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                        selfPayText.Focus();
+                        return;
+                    }
+
+                    if (selfPay > m_currentRecord.AllCost)
+                    {
+                        ShowMesage(@"自付费" + selfPay.ToString("F2") + "用不能大于总费用" + m_currentRecord.AllCost.ToString("F2") +
+                                   ")!");
+                        selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                        selfPayText.Focus();
+                        return;
+                    }
+
+
+                    m_currentRecord.Compensation = m_currentRecord.AllCost - selfPay;
+
+                    compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                    selfPayText.Text = selfPay.ToString("F2");
+                }
+                
                 NextRecord.Focus();
+               
             }
         }
         private void NextRecord_Click(object sender, EventArgs e)

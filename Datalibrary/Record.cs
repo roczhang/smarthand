@@ -129,8 +129,8 @@ namespace DataLibrary
 
             //普?中?,0110130030345,赵?麦?芳?,80,女?,2012/1/14,高?冠?心?,17.70 ,,,,,5.70 ,12.00 ,,,,,,,,,,,,,,
             return m_p.Address + "," + m_p.No + "," + m_p.Name + "," + m_p.Age.ToString() + "," + m_p.Sex + "," +
-                   Date + "," + Diagnose + "," + AllCost.ToString() + ",,,,," + 
-                   SelfPay.ToString() +","+ Compensation.ToString()+",";
+                   Date + "," + Diagnose + "," + AllCost.ToString("F2") + ",,,,," + 
+                   SelfPay.ToString("F2") +","+ Compensation.ToString("F2")+",";
         }
     }
 
