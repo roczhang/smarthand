@@ -270,8 +270,14 @@ namespace app
            if ( m_recordList.Count == 0 || m_indicator == m_recordList.Count -1  )
            {
                if (!String.IsNullOrEmpty(nameText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(numberText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(addressText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(ageText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(sexText.Text.Trim()) &&
                    !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
-                   !String.IsNullOrEmpty(allCostText.Text.Trim()))
+                   !String.IsNullOrEmpty(allCostText.Text.Trim()) &&
+                   !string.IsNullOrEmpty(selfPayText.Text.Trim())&&
+                   !string.IsNullOrEmpty(compensatePayText.Text.Trim()))
                {
                   
                    //when open exsite file ,the current text box display the last record from m_recordlist
@@ -297,6 +303,10 @@ namespace app
                    UpdateSmartBuffer();
                    ClearUI();
                    nameText.Focus();
+               }
+               else
+               {
+                   ShowMesage(@"请检查，纪录需要完整输入。");
                }
            }
            else
@@ -738,6 +748,9 @@ namespace app
                 "软件介绍", MessageBoxButtons.OK);
 
         }
+
+
+
 
 
     }

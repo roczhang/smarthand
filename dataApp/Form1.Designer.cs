@@ -70,8 +70,8 @@
             this.SettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calenderTimePicker = new System.Windows.Forms.DateTimePicker();
             this.introductionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calenderTimePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -440,9 +440,16 @@
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.InfoToolStripMenuItem.Text = "作者及版权";
             this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
+            // 
+            // introductionToolStripMenuItem
+            // 
+            this.introductionToolStripMenuItem.Name = "introductionToolStripMenuItem";
+            this.introductionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.introductionToolStripMenuItem.Text = "软件介绍";
+            this.introductionToolStripMenuItem.Click += new System.EventHandler(this.introductionToolStripMenuItem_Click);
             // 
             // calenderTimePicker
             // 
@@ -455,13 +462,6 @@
             this.calenderTimePicker.TabIndex = 6;
             this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
             this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
-            // 
-            // introductionToolStripMenuItem
-            // 
-            this.introductionToolStripMenuItem.Name = "introductionToolStripMenuItem";
-            this.introductionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.introductionToolStripMenuItem.Text = "软件介绍";
-            this.introductionToolStripMenuItem.Click += new System.EventHandler(this.introductionToolStripMenuItem_Click);
             // 
             // Form1
             // 
