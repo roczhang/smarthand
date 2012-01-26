@@ -416,7 +416,14 @@ namespace app
         {
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(ageText.Text.Trim()))
             {
-                m_currentRecord.Age = float.Parse(ageText.Text.Trim());
+                float age;
+                if( !float.TryParse(ageText.Text.Trim(),out age))
+                {
+                    ShowMesage(@"年龄必须是数值");
+                    ageText.Text = "";
+                    return;
+                }
+                m_currentRecord.Age = age;
 
                 sexText.Focus();
             }
@@ -426,9 +433,18 @@ namespace app
         {
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(sexText.Text.Trim()))
             {
-                m_currentRecord.Sex = sexText.Text.Trim();
-
-                diagnosisText.Focus();
+                string temp= sexText.Text.Trim();
+                if( temp == @"男" || temp == "女")
+                {
+                    m_currentRecord.Sex = temp;
+                    diagnosisText.Focus();
+                }
+                else
+                {
+                    ShowMesage("性别只能是男或女");
+                    sexText.Text = "";
+                    sexText.Focus();
+                }
             }
         }
 
