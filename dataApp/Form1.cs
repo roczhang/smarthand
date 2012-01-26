@@ -684,5 +684,35 @@ namespace app
                 m_fileChanged = false;
             }
         }
+
+        private void statisticsPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int peopleCount = m_recordList.Count;
+            float allCost = 0.0f;
+            float compentationCost = 0.0f;
+            float selfCost =0.0f;
+            foreach (Record r in m_recordList)
+            {
+                allCost += r.AllCost;
+                compentationCost += r.Compensation;
+            }
+            selfCost = allCost - compentationCost;
+            MessageBox.Show("人数     ：" + peopleCount.ToString("F2") + "\r\n" +
+                            "总费用 ：" + allCost.ToString("F2") + "\r\n" +
+                            "补偿     ：" + compentationCost.ToString("F2") + "\r\n" +
+                            "自付费 ：" + selfCost.ToString("F2"),
+                            "统计信息", MessageBoxButtons.OK);
+
+        }
+
+        private void SettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMesage("升级后实现");
+        }
+
+        private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("作者：张亚光 \r\n推广者： 张美红 张光", "作者介绍", MessageBoxButtons.OK);
+        }
     }
 }

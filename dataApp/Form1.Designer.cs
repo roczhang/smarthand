@@ -181,7 +181,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(29, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(243, 320);
+            this.groupBox1.Size = new System.Drawing.Size(243, 266);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             // 
@@ -249,9 +249,9 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.allCostText);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(325, 53);
+            this.groupBox2.Location = new System.Drawing.Point(324, 21);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(199, 226);
+            this.groupBox2.Size = new System.Drawing.Size(199, 266);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             // 
@@ -409,14 +409,16 @@
             // statisticsPageToolStripMenuItem
             // 
             this.statisticsPageToolStripMenuItem.Name = "statisticsPageToolStripMenuItem";
-            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.statisticsPageToolStripMenuItem.Text = "统计页";
+            this.statisticsPageToolStripMenuItem.Click += new System.EventHandler(this.statisticsPageToolStripMenuItem_Click);
             // 
             // SettingToolStripMenuItem
             // 
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
-            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.SettingToolStripMenuItem.Text = "设置";
+            this.SettingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -429,8 +431,9 @@
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.InfoToolStripMenuItem.Text = "作者及版权";
+            this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // calenderTimePicker
             // 
@@ -459,8 +462,8 @@
             this.Controls.Add(this.indicatorLable);
             this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.calenderTimePicker);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
