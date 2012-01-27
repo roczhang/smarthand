@@ -9,6 +9,8 @@ C:\Users\zhangroc\app\Datalibrary\bin\Debug\console.dll
 C:\Users\zhangroc\app\Datalibrary\bin\Debug\console.pdb
 C:\Users\zhangroc\app\Datalibrary\bin\Debug\LumenWorks.Framework.IO.dll
 C:\Users\zhangroc\app\Datalibrary\bin\Debug\LumenWorks.Framework.IO.pdb
+C:\Users\zhangroc\app\bin\Debug\DataLibrary.dll
+C:\Users\zhangroc\app\bin\Debug\DataLibrary.pdb
 C:\Users\zhangroc\app\Datalibrary\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\zhangroc\app\Datalibrary\obj\Debug\console.dll
-C:\Users\zhangroc\app\Datalibrary\obj\Debug\console.pdb
+C:\Users\zhangroc\app\Datalibrary\obj\Debug\DataLibrary.dll
+C:\Users\zhangroc\app\Datalibrary\obj\Debug\DataLibrary.pdb

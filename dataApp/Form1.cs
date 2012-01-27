@@ -31,7 +31,7 @@ namespace app
         {
             InitializeComponent();
             // initialize the data
-            string filePath = @"C:\Users\zhangroc\app\data\DB.csv";
+            string filePath = @".\data\DB.csv";
             m_smartbufferlist = new RecordStructure(filePath);
 
             m_recordList = new List<Record>();
