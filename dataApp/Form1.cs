@@ -44,6 +44,8 @@ namespace app
 
             PreviousRecord.Enabled = false;
 
+            // update the data to today
+            this.calenderTimePicker.Value = DateTime.Today;
 
 
         }

@@ -471,7 +471,7 @@
             this.calenderTimePicker.Name = "calenderTimePicker";
             this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
             this.calenderTimePicker.TabIndex = 6;
-            this.calenderTimePicker.Value = new System.DateTime(2012, 1, 24, 18, 45, 57, 0);
+            this.calenderTimePicker.Value = new System.DateTime(2012, 1, 27, 0, 0, 0, 0);
             this.calenderTimePicker.ValueChanged += new System.EventHandler(this.calenderTimePicker_ValueChanged);
             // 
             // Form1
