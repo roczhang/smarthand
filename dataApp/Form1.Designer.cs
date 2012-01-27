@@ -287,6 +287,7 @@
             // 
             this.NextRecord.AutoSize = true;
             this.NextRecord.Enabled = false;
+            this.NextRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NextRecord.Location = new System.Drawing.Point(356, 411);
             this.NextRecord.Name = "NextRecord";
             this.NextRecord.Size = new System.Drawing.Size(246, 84);
@@ -298,6 +299,7 @@
             // PreviousRecord
             // 
             this.PreviousRecord.Enabled = false;
+            this.PreviousRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PreviousRecord.Location = new System.Drawing.Point(2, 412);
             this.PreviousRecord.Name = "PreviousRecord";
             this.PreviousRecord.Size = new System.Drawing.Size(270, 83);
