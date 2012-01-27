@@ -162,7 +162,12 @@ namespace app
             {
                 MessageBox.Show(val);
             }
-               
+        }
+
+        private void ShowMesage(int lineNo,string promote, string val)
+        {
+            string format = lineNo.ToString() + ": " + promote + "[" + val + "]";
+            ShowMesage(format);
         }
 
         private void compensatePayText_KeyUp(object sender, KeyEventArgs e)
@@ -547,9 +552,12 @@ namespace app
             {
                 int fieldCount = csv.FieldCount;
 
-                int igore = 3; // igore the first 4 line ( 0 , 1, 2, 3)
+                int igore = 3; // don't read the header line
+                               // igore the 2-4 line ( 0 , 1, 2, 3)
+                int lineNum = 1 ;
                 while (csv.ReadNextRecord())
                 {
+                    lineNum++;
                    if (igore > 0) // igore header in the first 4 lines
                     {
                         igore--;
@@ -566,15 +574,30 @@ namespace app
                     if ( string.IsNullOrEmpty(address) || string.IsNullOrEmpty(no) || string.IsNullOrEmpty(name))
                         continue;
 
-                    float age = float.Parse(csv[3].Trim().Replace("?",""));
+                    float age = 0.0f;
+                    if( !float.TryParse(csv[3].Trim().Replace("?",""),out age))
+                    {
+                        ShowMesage(lineNum, "年龄不合法", csv[3].Trim().Replace("?", ""));
+                    }
+
                     string sex = csv[4].Trim().Replace("?","");
                     PeopleInfo p = new PeopleInfo(name,no,age,address,sex);
 
                     string date = csv[5].Trim().Replace("?","");
                     string diagose = csv[6].Trim().Replace("?","");
-                    float allcost = float.Parse(csv[7].Trim().Replace("?",""));
+
+                    float allcost = 0.0f;
+                    if (!float.TryParse(csv[7].Trim().Replace("?",""),out allcost))
+                    {
+                        ShowMesage(lineNum, "总费用不合法", csv[7].Trim());
+                    }
                     //float selfPay = csv[12];
-                    float compenation = float.Parse(csv[13].Trim().Replace("?",""));
+
+                    float compenation = 0.0f;
+                    if (!float.TryParse(csv[13].Trim().Replace("?", ""),out compenation))
+                    {
+                        ShowMesage(lineNum, "补偿费用不合法", csv[13].Trim());
+                    }
 
                     Record r = new Record(p,diagose,allcost,compenation,date);
               
