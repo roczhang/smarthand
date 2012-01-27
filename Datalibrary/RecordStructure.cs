@@ -37,6 +37,12 @@ namespace Datalibrary
 
         private void InitDataStructure()
         {
+            if( String.IsNullOrEmpty(m_filePath) || File.Exists(m_filePath))
+            {
+                // there is no smart buffer file
+                return;
+            }
+
             using (CsvReader csv =
                    new CsvReader(new StreamReader(m_filePath, Encoding.GetEncoding("gb2312")), true))
             {

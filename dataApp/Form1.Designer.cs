@@ -81,7 +81,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 32);
+            this.label1.Location = new System.Drawing.Point(36, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 0;
@@ -90,7 +90,8 @@
             // nameText
             // 
             this.nameText.Enabled = false;
-            this.nameText.Location = new System.Drawing.Point(93, 35);
+            this.nameText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.nameText.Location = new System.Drawing.Point(73, 30);
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(100, 20);
             this.nameText.TabIndex = 1;
@@ -99,7 +100,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 118);
+            this.label2.Location = new System.Drawing.Point(36, 122);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 2;
@@ -108,16 +109,17 @@
             // addressText
             // 
             this.addressText.Enabled = false;
-            this.addressText.Location = new System.Drawing.Point(91, 111);
+            this.addressText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.addressText.Location = new System.Drawing.Point(73, 118);
             this.addressText.Name = "addressText";
-            this.addressText.Size = new System.Drawing.Size(102, 20);
+            this.addressText.Size = new System.Drawing.Size(100, 20);
             this.addressText.TabIndex = 3;
             this.addressText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.addressText_KeyUp);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 160);
+            this.label3.Location = new System.Drawing.Point(36, 167);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 4;
@@ -126,7 +128,8 @@
             // ageText
             // 
             this.ageText.Enabled = false;
-            this.ageText.Location = new System.Drawing.Point(93, 157);
+            this.ageText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.ageText.Location = new System.Drawing.Point(73, 162);
             this.ageText.Name = "ageText";
             this.ageText.Size = new System.Drawing.Size(100, 20);
             this.ageText.TabIndex = 4;
@@ -135,7 +138,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(41, 214);
+            this.label4.Location = new System.Drawing.Point(36, 212);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 6;
@@ -144,7 +147,8 @@
             // sexText
             // 
             this.sexText.Enabled = false;
-            this.sexText.Location = new System.Drawing.Point(93, 207);
+            this.sexText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.sexText.Location = new System.Drawing.Point(73, 206);
             this.sexText.Name = "sexText";
             this.sexText.Size = new System.Drawing.Size(100, 20);
             this.sexText.TabIndex = 5;
@@ -153,7 +157,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(36, 72);
+            this.label5.Location = new System.Drawing.Point(12, 77);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 8;
@@ -162,7 +166,8 @@
             // numberText
             // 
             this.numberText.Enabled = false;
-            this.numberText.Location = new System.Drawing.Point(93, 69);
+            this.numberText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.numberText.Location = new System.Drawing.Point(73, 74);
             this.numberText.Name = "numberText";
             this.numberText.Size = new System.Drawing.Size(100, 20);
             this.numberText.TabIndex = 2;
@@ -180,7 +185,7 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.nameText);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(29, 21);
+            this.groupBox1.Location = new System.Drawing.Point(48, 57);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(243, 266);
             this.groupBox1.TabIndex = 11;
@@ -189,7 +194,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 75);
+            this.label7.Location = new System.Drawing.Point(13, 75);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 13;
@@ -198,16 +203,17 @@
             // allCostText
             // 
             this.allCostText.Enabled = false;
-            this.allCostText.Location = new System.Drawing.Point(79, 75);
+            this.allCostText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.allCostText.Location = new System.Drawing.Point(62, 72);
             this.allCostText.Name = "allCostText";
-            this.allCostText.Size = new System.Drawing.Size(87, 20);
+            this.allCostText.Size = new System.Drawing.Size(100, 20);
             this.allCostText.TabIndex = 8;
             this.allCostText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.allCostText_KeyUp);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(28, 162);
+            this.label8.Location = new System.Drawing.Point(25, 157);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 15;
@@ -216,16 +222,17 @@
             // selfPayText
             // 
             this.selfPayText.Enabled = false;
-            this.selfPayText.Location = new System.Drawing.Point(79, 159);
+            this.selfPayText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.selfPayText.Location = new System.Drawing.Point(62, 154);
             this.selfPayText.Name = "selfPayText";
-            this.selfPayText.Size = new System.Drawing.Size(85, 20);
+            this.selfPayText.Size = new System.Drawing.Size(100, 20);
             this.selfPayText.TabIndex = 9;
             this.selfPayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.selfPayText_KeyUp);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 124);
+            this.label9.Location = new System.Drawing.Point(25, 116);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 17;
@@ -234,9 +241,10 @@
             // compensatePayText
             // 
             this.compensatePayText.Enabled = false;
-            this.compensatePayText.Location = new System.Drawing.Point(79, 117);
+            this.compensatePayText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.compensatePayText.Location = new System.Drawing.Point(62, 113);
             this.compensatePayText.Name = "compensatePayText";
-            this.compensatePayText.Size = new System.Drawing.Size(84, 20);
+            this.compensatePayText.Size = new System.Drawing.Size(100, 20);
             this.compensatePayText.TabIndex = 10;
             this.compensatePayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.compensatePayText_KeyUp);
             // 
@@ -250,7 +258,7 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.allCostText);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(324, 21);
+            this.groupBox2.Location = new System.Drawing.Point(336, 57);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(199, 266);
             this.groupBox2.TabIndex = 19;
@@ -259,16 +267,17 @@
             // diagnosisText
             // 
             this.diagnosisText.Enabled = false;
-            this.diagnosisText.Location = new System.Drawing.Point(79, 34);
+            this.diagnosisText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.diagnosisText.Location = new System.Drawing.Point(62, 31);
             this.diagnosisText.Name = "diagnosisText";
-            this.diagnosisText.Size = new System.Drawing.Size(87, 20);
+            this.diagnosisText.Size = new System.Drawing.Size(100, 20);
             this.diagnosisText.TabIndex = 7;
             this.diagnosisText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.diagnosisText_KeyUp);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(25, 37);
+            this.label10.Location = new System.Drawing.Point(25, 34);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(31, 13);
             this.label10.TabIndex = 22;
@@ -276,6 +285,7 @@
             // 
             // NextRecord
             // 
+            this.NextRecord.AutoSize = true;
             this.NextRecord.Enabled = false;
             this.NextRecord.Location = new System.Drawing.Point(356, 411);
             this.NextRecord.Name = "NextRecord";
@@ -456,7 +466,7 @@
             this.calenderTimePicker.AllowDrop = true;
             this.calenderTimePicker.Enabled = false;
             this.calenderTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.calenderTimePicker.Location = new System.Drawing.Point(12, 386);
+            this.calenderTimePicker.Location = new System.Drawing.Point(398, 34);
             this.calenderTimePicker.Name = "calenderTimePicker";
             this.calenderTimePicker.Size = new System.Drawing.Size(100, 20);
             this.calenderTimePicker.TabIndex = 6;
@@ -472,9 +482,9 @@
             this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.calenderTimePicker);
-            this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "农村医疗合作信息录入助手";

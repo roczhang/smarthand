@@ -749,10 +749,10 @@ namespace app
                 compentationCost += r.Compensation;
             }
             selfCost = allCost - compentationCost;
-            MessageBox.Show("人数     ：" + peopleCount.ToString("F2") + "\r\n" +
-                            "总费用 ：" + allCost.ToString("F2") + "\r\n" +
-                            "补偿     ：" + compentationCost.ToString("F2") + "\r\n" +
-                            "自付费 ：" + selfCost.ToString("F2"),
+            MessageBox.Show("人    数：" + peopleCount.ToString("F2") + "\r\n" +
+                            "总费用：" + allCost.ToString("F2") + "\r\n" +
+                            "补    偿：" + compentationCost.ToString("F2") + "\r\n" +
+                            "自付费：" + selfCost.ToString("F2"),
                             "统计信息", MessageBoxButtons.OK);
 
         }
@@ -764,7 +764,9 @@ namespace app
 
         private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("作者：张亚光 \r\n推广者： 张美红 张光", "作者介绍", MessageBoxButtons.OK);
+            MessageBox.Show("作    者：张亚光 \r\n" +
+                            "设    计：吕宾 \r\n" +
+                            "推广者：张美红 张光", "作者介绍", MessageBoxButtons.OK);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -786,7 +788,7 @@ namespace app
         private void introductionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show( "农村医疗合作信息录入助手简介：\r\n"+ @"该软件简称:'小助手'，"+
-                "帮你快速实现医疗信息录入并声称报表，其特点准确，高效。" + "让你轻松跨越数字鸿沟！",
+                "帮你快速实现医疗信息录入并生成报表，其特点准确，高效。" + "让你轻松跨越数字鸿沟！",
                 "软件介绍", MessageBoxButtons.OK);
 
         }
