@@ -284,7 +284,13 @@ namespace app
                    //Now add the record it will create duplicate code.
                    if(String.IsNullOrEmpty(m_currentRecord.Name))
                    {
-                       ClearUI(); 
+                       ClearUI();
+
+                       //update the previous button
+                       m_indicator = m_recordList.Count - 1;
+                       string tlabel = Indicator2Position(m_indicator) + "/" + m_recordList.Count.ToString();
+                       UpdateIndicator(m_indicator, -1, -1, tlabel);
+
                        return;
                    }
 
@@ -292,7 +298,6 @@ namespace app
                    m_fileChanged = true;
                    
                    m_indicator = m_recordList.Count - 1;
-                   UpdateIndicator(m_indicator);
 
                    int previous = m_indicator;
                    int current = -1;
@@ -334,19 +339,6 @@ namespace app
             m_smartbufferlist.AddRecord(m_currentRecord.People);
         }
 
-        private void UpdateIndicator(int indicator)
-        {
-            if( m_recordList.Count == 0 )
-                return;
-            
-            //if( indicator == 0 )
-            //{
-            //    UpdateIndicator()
-            //}
-            //Record previous = m_currentRecord;
-            //Record current = null;
-            //Record next = null;
-        }
 
         private void UpdateIndicator(int previous, int current, int next, string label)
         {
@@ -384,9 +376,9 @@ namespace app
                 calenderTimePicker.Text = current.Date;
 
                 diagnosisText.Text = current.Diagnose;
-                allCostText.Text = current.AllCost.ToString();
-                compensatePayText.Text = current.Compensation.ToString();
-                selfPayText.Text = current.SelfPay.ToString();
+                allCostText.Text = current.AllCost.ToString("F2");
+                compensatePayText.Text = current.Compensation.ToString("F2");
+                selfPayText.Text = current.SelfPay.ToString("F2");
             }
         }
        
@@ -476,6 +468,20 @@ namespace app
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            // check the current whether it has already open new file
+            // create new file and input data but no save so far
+            if ((String.IsNullOrEmpty(m_filepath) && m_recordList.Count != 0) ||
+                 m_fileChanged == true)
+            {
+
+                if (MessageBox.Show("还没有保存当前输入，创建新文件会丢失已经输入信息。\r\n" +
+                                    " 你确实丢掉已输入信息而创建新文件吗?", "保存提示", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            
+            
             //step1 open file and save the filepath
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "csv(*.csv)|*.csv|all(*.*)|*.*";
@@ -487,10 +493,21 @@ namespace app
                 m_filepath = ofd.FileName;
             }
 
-
-            //step2 initialize the recordlist
-            ReaderCSV(m_filepath);
-            //m_currentRecord = m_recordList.Last();
+            try
+            {
+                //step2 initialize the recordlist
+                 m_recordList.Clear();
+                 ReaderCSV(m_filepath);
+                //m_currentRecord = m_recordList.Last();
+            }
+            catch(Exception val)
+            {
+                ShowMesage(val.Message + "\r\n"+ 
+                    "问题：该文件被其他应用程序已打开" +"\r\n"+
+                    "建议：关掉其他应用程序，重新打开");
+                return;
+            }
+            
 
             //step3 update UI
             if( m_recordList.Count > 0)
@@ -508,10 +525,13 @@ namespace app
 
                 string label = Indicator2Position(m_indicator).ToString() + "/" + m_recordList.Count.ToString();
                 UpdateIndicator(previous, m_indicator, next, label);
+
+
+                //enable UI
+                EnableInput(true);
             }
 
-            //enable UI
-            EnableInput(true);
+
 
         }
 
@@ -610,9 +630,20 @@ namespace app
                 GetFilePath();
             }
 
+
             if (!String.IsNullOrEmpty(m_filepath))
             {
-                SaveFile(m_filepath);
+                try
+                {
+                    SaveFile(m_filepath);
+                }
+                catch (Exception val)
+                {
+                    ShowMesage(val.Message + "\r\n" +
+                     "问题：该文件被其他应用程序已打开" + "\r\n" +
+                     "建议：关掉其他应用程序，重新打开");
+                    return;
+                }
                 m_fileChanged = false;
             }
         }
@@ -690,7 +721,18 @@ namespace app
             GetFilePath();
             if(!String.IsNullOrEmpty(m_filepath))
             {
-                SaveFile(m_filepath);
+                try
+                {
+                    SaveFile(m_filepath);
+                }
+                catch (Exception val)
+                {
+                    ShowMesage(val.Message + "\r\n" +
+                     "问题：该文件被其他应用程序已打开" + "\r\n" +
+                     "建议：关掉其他应用程序，重新打开");
+                    return;
+                }
+                
                 m_fileChanged = false;
             }
         }
