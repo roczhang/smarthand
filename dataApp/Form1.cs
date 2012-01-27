@@ -185,7 +185,7 @@ namespace app
                     return;
                 }
 
-                CostFormular cf = new CostFormular(allcost);
+                CostFormular cf = new CostFormular(allcost,m_setting.Ratio);
 
                 m_currentRecord.AllCost = cf.AllCost;
                 m_currentRecord.Compensation = cf.Compentation;

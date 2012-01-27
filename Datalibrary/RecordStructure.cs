@@ -22,7 +22,7 @@ namespace Datalibrary
 
          ~RecordStructure()
         {
-        SaveFile(m_filePath);
+             SaveFile(m_filePath);
         }
         public Boolean Query(string name, ref List<PeopleInfo> recordlist )
         {
@@ -131,6 +131,10 @@ namespace Datalibrary
 
         public void SaveFile(string path)
         {
+            if(!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
             FileStream fs = new FileStream(path, FileMode.Create);
             StreamWriter streamWriter = new StreamWriter(fs, Encoding.GetEncoding("gb2312"));
             string header = @"乡村名称,合疗证号,患者姓名,年龄,性别,";

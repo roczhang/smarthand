@@ -31,5 +31,14 @@ namespace app.Properties {
                 return ((string)(this["DBPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.7")]
+        public float Ratio {
+            get {
+                return ((float)(this["Ratio"]));
+            }
+        }
     }
 }

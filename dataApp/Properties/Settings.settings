@@ -5,5 +5,8 @@
     <Setting Name="DBPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">data\DB.csv</Value>
     </Setting>
+    <Setting Name="Ratio" Type="System.Single" Scope="Application">
+      <Value Profile="(Default)">0.7</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

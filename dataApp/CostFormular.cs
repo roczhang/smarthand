@@ -9,10 +9,11 @@ namespace app
     {
         private float m_allcost;
         private float m_compentation;
-        private float ratio = 0.7f;
+        private float m_ratio = 0.7f;
         //private float m_selfPay;
-        public CostFormular(float allcost)
+        public CostFormular(float allcost,float ratio)
         {
+            m_ratio = ratio;
             m_allcost = allcost;
             if ( m_allcost *ratio > 20.0f )
             {
@@ -20,13 +21,14 @@ namespace app
             }
             else
             {
-                double t = (m_allcost*ratio + 0.501f);
+                double t = (m_allcost * m_ratio + 0.501f);
                 m_compentation = (float)System.Math.Floor(t);  
             }
         }
 
-        public CostFormular(float allcost, float compentation)
+        public CostFormular(float allcost, float compentation,float ratio)
         {
+            // ratio ignore in this case
             m_allcost = allcost;
             m_compentation = compentation;
         }
