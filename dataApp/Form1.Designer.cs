@@ -464,6 +464,7 @@
             // calenderTimePicker
             // 
             this.calenderTimePicker.AllowDrop = true;
+            this.calenderTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calenderTimePicker.Enabled = false;
             this.calenderTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.calenderTimePicker.Location = new System.Drawing.Point(398, 34);
@@ -487,7 +488,7 @@
             this.Controls.Add(this.calenderTimePicker);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "农村医疗合作信息录入助手";
+            this.Text = "农村医疗合作信息录入小助手";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

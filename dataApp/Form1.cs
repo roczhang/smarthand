@@ -10,6 +10,7 @@ using DataLibrary;
 using Datalibrary;
 using System.IO;
 using LumenWorks.Framework.IO.Csv;
+using app.Properties;
 
 namespace app
 {
@@ -25,13 +26,16 @@ namespace app
         private string m_filepath;
         private bool m_fileChanged = false; // check if user input new date
 
+        private Settings m_setting;
 
         
         public Form1()
         {
             InitializeComponent();
+
             // initialize the data
-            string filePath = @".\data\DB.csv";
+            m_setting = new Settings();
+            string filePath = m_setting.DBPath;
             m_smartbufferlist = new RecordStructure(filePath);
 
             m_recordList = new List<Record>();
@@ -39,12 +43,49 @@ namespace app
             m_currentRecord.Date = DateTime.Today.ToShortDateString();
 
             PreviousRecord.Enabled = false;
+
+
+
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EnableInput(true);
+
+            if (CheckAppChanged(m_filepath, m_recordList.Count, m_fileChanged))
+            {
+                if (MessageBox.Show("还没有保存当前输入，创建新文件会丢失已经输入信息。\r\n" +
+                                  " 你确认丢掉已输入信息而创建新文件吗?", "保存提示", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            ResetAppStatus();
+
+        }
+
+        private void ResetAppStatus()
+        {
+
+            m_filepath = "";
+            m_fileChanged = false;
+
+            m_recordList.Clear();
             m_indicator = 0;
+
+
+            // app title
+            UpdateAppTitle(m_filepath, m_fileChanged);
+
+            // input Box
+            ClearUI();
+
+            // previous and next button
+            PreviousRecord.Text = "上一个";
+            NextRecord.Text = "下一个";
+            indicatorLable.Text = "0/0";
+            
             this.nameText.Focus();
         }
 
@@ -300,7 +341,7 @@ namespace app
                    }
 
                    SaveCurrentRecord();
-                   m_fileChanged = true;
+                   UpdateAppStatus();
                    
                    m_indicator = m_recordList.Count - 1;
 
@@ -335,6 +376,12 @@ namespace app
           
             
 
+        }
+
+        private void UpdateAppStatus()
+        {
+            m_fileChanged = true;
+            UpdateAppTitle(m_filepath,m_fileChanged);
         }
 
         private void UpdateSmartBuffer()
@@ -473,20 +520,16 @@ namespace app
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // check the current whether it has already open new file
-            // create new file and input data but no save so far
-            if ((String.IsNullOrEmpty(m_filepath) && m_recordList.Count != 0) ||
-                 m_fileChanged == true)
+            if (CheckAppChanged(m_filepath, m_recordList.Count,m_fileChanged))
             {
-
                 if (MessageBox.Show("还没有保存当前输入，创建新文件会丢失已经输入信息。\r\n" +
-                                    " 你确实丢掉已输入信息而创建新文件吗?", "保存提示", MessageBoxButtons.YesNo) == DialogResult.No)
+                                  " 你确认丢掉已输入信息而打开另外一个文件吗?", "保存提示", MessageBoxButtons.YesNo) == DialogResult.No)
                 {
-                    return;
+                    return ;
                 }
             }
-            
-            
+
+
             //step1 open file and save the filepath
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "csv(*.csv)|*.csv|all(*.*)|*.*";
@@ -496,6 +539,10 @@ namespace app
             if(ofd.ShowDialog() == DialogResult.OK)
             {
                 m_filepath = ofd.FileName;
+            }
+            else
+            {
+                return;
             }
 
             try
@@ -519,6 +566,7 @@ namespace app
             {
                 m_indicator = m_recordList.Count - 1;
                 UpdateInputUI(m_indicator);
+                UpdateAppTitle(m_filepath,m_fileChanged);
 
                 //step4 update the indicator
                 int previous = m_indicator - 1;
@@ -538,6 +586,26 @@ namespace app
 
 
 
+        }
+
+        private bool CheckAppChanged(string filePath, int recordCount, bool changed)
+        {
+            // check the current whether it has already open new file
+            // create new file and input data but no save so far
+            if ((String.IsNullOrEmpty(filePath) && recordCount != 0) ||
+                changed == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void UpdateAppTitle(string filepath, bool changed)
+        {
+            string save = "";
+            if (changed)
+                save = "(*)";
+            this.Text = "小助手: " + filepath + save;
         }
 
         private void ReaderCSV(string filePath)
@@ -668,6 +736,7 @@ namespace app
                     return;
                 }
                 m_fileChanged = false;
+                UpdateAppTitle(m_filepath, m_fileChanged);
             }
         }
 
@@ -757,6 +826,7 @@ namespace app
                 }
                 
                 m_fileChanged = false;
+                UpdateAppTitle(m_filepath,m_fileChanged);
             }
         }
 
