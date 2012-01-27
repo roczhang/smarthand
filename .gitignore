@@ -19,3 +19,6 @@
 /LumenWorks.Framework.IO/_ReSharper.LumenWorks.Framework.IO
 /dataApp/DataApp.csproj.user
 /dataApp/obj/
+/CsvReaderBenchmarks/bin/Release/LumenWorks.Framework.IO.xml
+/CsvReaderDemo/bin/Release/LumenWorks.Framework.IO.xml
+/LumenWorks.Framework.IO/LumenWorks.Framework.IO.suo
