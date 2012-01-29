@@ -134,6 +134,7 @@
             this.ageText.Size = new System.Drawing.Size(100, 20);
             this.ageText.TabIndex = 4;
             this.ageText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ageText_KeyUp);
+            this.ageText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
             // label4
             // 
@@ -172,6 +173,7 @@
             this.numberText.Size = new System.Drawing.Size(100, 20);
             this.numberText.TabIndex = 2;
             this.numberText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numberText_KeyUp);
+            this.numberText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
             // groupBox1
             // 
@@ -209,6 +211,7 @@
             this.allCostText.Size = new System.Drawing.Size(100, 20);
             this.allCostText.TabIndex = 8;
             this.allCostText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.allCostText_KeyUp);
+            this.allCostText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
             // label8
             // 
@@ -228,6 +231,7 @@
             this.selfPayText.Size = new System.Drawing.Size(100, 20);
             this.selfPayText.TabIndex = 9;
             this.selfPayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.selfPayText_KeyUp);
+            this.selfPayText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
             // label9
             // 
@@ -247,6 +251,7 @@
             this.compensatePayText.Size = new System.Drawing.Size(100, 20);
             this.compensatePayText.TabIndex = 10;
             this.compensatePayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.compensatePayText_KeyUp);
+            this.compensatePayText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
             // groupBox2
             // 
@@ -429,14 +434,14 @@
             // statisticsPageToolStripMenuItem
             // 
             this.statisticsPageToolStripMenuItem.Name = "statisticsPageToolStripMenuItem";
-            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.statisticsPageToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.statisticsPageToolStripMenuItem.Text = "统计页";
             this.statisticsPageToolStripMenuItem.Click += new System.EventHandler(this.statisticsPageToolStripMenuItem_Click);
             // 
             // SettingToolStripMenuItem
             // 
             this.SettingToolStripMenuItem.Name = "SettingToolStripMenuItem";
-            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SettingToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.SettingToolStripMenuItem.Text = "详细统计";
             this.SettingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 

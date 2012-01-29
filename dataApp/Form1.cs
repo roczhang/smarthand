@@ -145,6 +145,11 @@ namespace app
                 }
                 else
                 {
+                    this.numberText.Text = "";
+                    this.ageText.Text = "";
+                    this.sexText.Text = "";
+                    this.addressText.Text = "";
+
                     this.numberText.Focus();
                 }
                 
@@ -892,6 +897,19 @@ namespace app
                 "帮你快速实现医疗信息录入并生成报表，其特点准确，高效。" + "让你轻松跨越数字鸿沟！",
                 "软件介绍", MessageBoxButtons.OK);
 
+        }
+
+        private void Text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if( (int)e.KeyChar >= 65296 && (int)e.KeyChar <=65305)
+            {
+                e.KeyChar =(char)((int)e.KeyChar -65248);
+            }
+        }
+
+        private void allCostText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
 
 
