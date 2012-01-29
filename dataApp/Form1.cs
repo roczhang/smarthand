@@ -438,8 +438,14 @@ namespace app
        
         private void SaveCurrentRecord()
         {
+            UpdateCurrentDate();
             Record r =new Record(m_currentRecord);
             m_recordList.Add(r);
+        }
+
+        private void UpdateCurrentDate()
+        {
+            m_currentRecord.Date = this.calenderTimePicker.Text;
         }
 
         private void ClearUI()
