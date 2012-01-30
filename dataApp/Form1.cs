@@ -27,6 +27,7 @@ namespace app
         private bool m_fileChanged = false; // check if user input new date
 
         private Settings m_setting;
+        private int m_noLenght = 0;
 
         
         public Form1()
@@ -476,11 +477,25 @@ namespace app
 
         private void numberText_KeyUp(object sender, KeyEventArgs e)
         {
+            
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(numberText.Text.Trim()))
             {
-                m_currentRecord.No = numberText.Text.Trim();
+                string temp = numberText.Text.Trim();
+                if (temp.Length == 13)
+                {
+                    m_noLenght = 0;
+                    m_currentRecord.No = numberText.Text.Trim();
+                    addressText.Focus();
+                }
+                else
+                {
+                    m_noLenght++;
+                    if (m_noLenght >= 3)
+                    {
+                        ShowMesage(@"医疗号长度应该是13位:现在长度为:" + temp.Length + ". 请确认");
+                    }
+                }
 
-                addressText.Focus();
             }
         }
 
@@ -941,6 +956,17 @@ namespace app
                 }
             }
             return new string(c);
+        }
+
+        private void noText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (numberText.Text.Trim().Count() == 13)
+            {
+                numberText.Text = numberText.Text.Trim().Substring(0, 13);
+                e.KeyChar =' ';
+            }
+            Text_KeyPress(sender, e);
+
         }
 
 

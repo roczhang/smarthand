@@ -173,7 +173,7 @@
             this.numberText.Size = new System.Drawing.Size(100, 20);
             this.numberText.TabIndex = 2;
             this.numberText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numberText_KeyUp);
-            this.numberText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
+            this.numberText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noText_KeyPress);
             // 
             // groupBox1
             // 
