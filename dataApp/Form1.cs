@@ -96,7 +96,7 @@ namespace app
         {
             this.nameText.Enabled    = enabled;
             this.ageText.Enabled     = enabled;
-            this.sexText.Enabled     = enabled;
+            this.SexBox.Enabled      = enabled;
             this.addressText.Enabled = enabled;
             this.numberText.Enabled  = enabled;
                    
@@ -124,7 +124,7 @@ namespace app
         {
             this.numberText.Text = people.No;
             this.ageText.Text = people.Age.ToString();
-            this.sexText.Text = people.Sex;
+            this.SexBox.Text = people.Sex;
             this.addressText.Text = people.Address;
 
             m_currentRecord.People = people;
@@ -148,13 +148,11 @@ namespace app
                 {
                     this.numberText.Text = "";
                     this.ageText.Text = "";
-                    this.sexText.Text = "";
+                    this.SexBox.Text = ""; // statistics number : C(woman) > C(man)
                     this.addressText.Text = "";
 
                     this.numberText.Focus();
                 }
-                
-               ;
                 
             }
 
@@ -327,7 +325,7 @@ namespace app
                    !String.IsNullOrEmpty(numberText.Text.Trim()) &&
                    !String.IsNullOrEmpty(addressText.Text.Trim()) &&
                    !String.IsNullOrEmpty(ageText.Text.Trim()) &&
-                   !String.IsNullOrEmpty(sexText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(SexBox.Text.Trim()) &&
                    !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
                    !String.IsNullOrEmpty(allCostText.Text.Trim()) &&
                    !string.IsNullOrEmpty(selfPayText.Text.Trim())&&
@@ -458,7 +456,7 @@ namespace app
         {
             this.nameText.Clear();
             this.ageText.Clear();
-            this.sexText.Clear();
+            this.SexBox.Text="";
             this.addressText.Clear();
             this.numberText.Clear();
 
@@ -522,8 +520,8 @@ namespace app
                     return;
                 }
                 m_currentRecord.Age = age;
-
-                sexText.Focus();
+                SexBox.Text = "女";
+                SexBox.Focus();
             }
         }
 
@@ -970,6 +968,16 @@ namespace app
         }
 
 
-
+        private void SexBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if( (int)e.KeyValue == 13 )
+            {
+                if (SexBox.Text == "男" || SexBox.Text == "女")
+                {
+                    this.m_currentRecord.Sex = SexBox.Text;
+                    this.diagnosisText.Focus();
+                }
+            }
+        }
     }
 }

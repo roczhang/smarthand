@@ -40,6 +40,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numberText = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.SexBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.allCostText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -47,8 +48,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.compensatePayText = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.diagnosisText = new System.Windows.Forms.TextBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.diagnosisText = new System.Windows.Forms.TextBox();
             this.NextRecord = new System.Windows.Forms.Button();
             this.PreviousRecord = new System.Windows.Forms.Button();
             this.indicatorLable = new System.Windows.Forms.Label();
@@ -147,9 +149,10 @@
             // 
             // sexText
             // 
+            this.sexText.AllowDrop = true;
             this.sexText.Enabled = false;
             this.sexText.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.sexText.Location = new System.Drawing.Point(73, 206);
+            this.sexText.Location = new System.Drawing.Point(48, 350);
             this.sexText.Name = "sexText";
             this.sexText.Size = new System.Drawing.Size(100, 20);
             this.sexText.TabIndex = 5;
@@ -166,6 +169,7 @@
             // 
             // numberText
             // 
+            this.numberText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.numberText.Enabled = false;
             this.numberText.ImeMode = System.Windows.Forms.ImeMode.On;
             this.numberText.Location = new System.Drawing.Point(73, 74);
@@ -177,7 +181,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.sexText);
+            this.groupBox1.Controls.Add(this.SexBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.ageText);
             this.groupBox1.Controls.Add(this.label3);
@@ -192,6 +196,19 @@
             this.groupBox1.Size = new System.Drawing.Size(243, 266);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
+            // 
+            // SexBox
+            // 
+            this.SexBox.Enabled = false;
+            this.SexBox.FormattingEnabled = true;
+            this.SexBox.Items.AddRange(new object[] {
+            "男",
+            "女"});
+            this.SexBox.Location = new System.Drawing.Point(73, 204);
+            this.SexBox.Name = "SexBox";
+            this.SexBox.Size = new System.Drawing.Size(100, 21);
+            this.SexBox.TabIndex = 24;
+            this.SexBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SexBox_KeyUp);
             // 
             // label7
             // 
@@ -255,7 +272,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.diagnosisText);
+            this.groupBox2.Controls.Add(this.comboBox2);
             this.groupBox2.Controls.Add(this.compensatePayText);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
@@ -269,15 +286,19 @@
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             // 
-            // diagnosisText
+            // comboBox2
             // 
-            this.diagnosisText.Enabled = false;
-            this.diagnosisText.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.diagnosisText.Location = new System.Drawing.Point(62, 31);
-            this.diagnosisText.Name = "diagnosisText";
-            this.diagnosisText.Size = new System.Drawing.Size(100, 20);
-            this.diagnosisText.TabIndex = 7;
-            this.diagnosisText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.diagnosisText_KeyUp);
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "上感",
+            "支气管炎",
+            "胃溃疡",
+            "湿疹",
+            "牙周炎"});
+            this.comboBox2.Location = new System.Drawing.Point(63, 32);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(99, 21);
+            this.comboBox2.TabIndex = 25;
             // 
             // label10
             // 
@@ -287,6 +308,16 @@
             this.label10.Size = new System.Drawing.Size(31, 13);
             this.label10.TabIndex = 22;
             this.label10.Text = "诊断";
+            // 
+            // diagnosisText
+            // 
+            this.diagnosisText.Enabled = false;
+            this.diagnosisText.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.diagnosisText.Location = new System.Drawing.Point(336, 350);
+            this.diagnosisText.Name = "diagnosisText";
+            this.diagnosisText.Size = new System.Drawing.Size(100, 20);
+            this.diagnosisText.TabIndex = 7;
+            this.diagnosisText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.diagnosisText_KeyUp);
             // 
             // NextRecord
             // 
@@ -486,7 +517,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 496);
+            this.Controls.Add(this.sexText);
             this.Controls.Add(this.indicatorLable);
+            this.Controls.Add(this.diagnosisText);
             this.Controls.Add(this.PreviousRecord);
             this.Controls.Add(this.NextRecord);
             this.Controls.Add(this.groupBox1);
@@ -554,6 +587,8 @@
         private System.Windows.Forms.DateTimePicker calenderTimePicker;
         private System.Windows.Forms.ToolStripMenuItem SaveAsStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem introductionToolStripMenuItem;
+        private System.Windows.Forms.ComboBox SexBox;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 
