@@ -16,8 +16,9 @@ namespace app
 {
     public partial class Form1 : Form
     {
-        private RecordStructure m_smartbufferlist;
         private IList<Record> m_recordList;
+        private RecordStructure m_smartbufferlist;
+        private StatisticsRecord m_diagnosisList;
         private Record m_currentRecord ;
         private int m_indicator = 0;
         private bool m_isCatched = false;
@@ -34,12 +35,13 @@ namespace app
         {
             InitializeComponent();
 
+            m_recordList = new List<Record>();
             // initialize the data
             m_setting = new Settings();
             string filePath = m_setting.DBPath;
             m_smartbufferlist = new RecordStructure(filePath);
 
-            m_recordList = new List<Record>();
+            m_diagnosisList = new StatisticsRecord();
             m_currentRecord = new Record();
             m_currentRecord.Date = DateTime.Today.ToShortDateString();
 
@@ -143,8 +145,8 @@ namespace app
                     SetCurrentRecord(peopleList.First());
                     
                     //not noly set the focus and also add the cache date
-                    FindDiagnosisContent(m_currentRecord.Name, calenderTimePicker.Text, m_setting.BeforeDays);
-                    this.DiagnosisBox.Focus();
+                    UpdateDiagnosisBox();
+                    //this.DiagnosisBox.Focus();
                    
 
                 }
@@ -161,25 +163,43 @@ namespace app
             }
         }
 
-        private void FindDiagnosisContent(string name, string day, int days)
+        private void UpdateDiagnosisBox()
+        {
+            string capture;
+            IList<String> illnessList;
+            if(FindDiagnosisContent(m_currentRecord.Name, calenderTimePicker.Text, m_setting.BeforeDays,out capture, out illnessList))
+            {
+                DiagnosisBox.Text = capture;
+            }
+
+            foreach (string s in illnessList)
+            {
+                DiagnosisBox.Items.Add(s);
+            }
+          
+
+            DiagnosisBox.Focus();
+
+
+        }
+
+        private bool  FindDiagnosisContent(string name, string day, int days,out string capture, out IList<string> illnessList )
         {
             
             //the user has been appeared in the last two days
-            string diagnosis;
-            if (IsExsitedInRecent(name,day,days,out diagnosis))
+            illnessList = new List<string>();
+            if (IsExsitedInRecent(name, day, days, out capture))
             {
-                DiagnosisBox.Text = diagnosis;
-                DiagnosisBox.Focus();
+                return true;
             }
-            else if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
+            
+            if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
             {
-                
+                IList<string> illnessName = m_diagnosisList.Toplist(5);
             }
-            else
-            {
-                DiagnosisBox.Focus();
-            }
+            return false;
 
+            
         }
 
         private bool IsExsitedInRecent(string name, string day, int days, out string diagnosis)
@@ -209,10 +229,10 @@ namespace app
                        return true;
                    }
                }
-               else
-               {
-                   return false; // assume that user input the data from old to latest
-               }
+               //else
+               //{
+               //    return false; // assume that user input the data from old to latest
+               //}
             }
             return false;
         }
@@ -495,6 +515,7 @@ namespace app
             UpdateCurrentDate();
             Record r =new Record(m_currentRecord);
             m_recordList.Add(r);
+            m_diagnosisList.Add(r.Diagnose);
         }
 
         private void UpdateCurrentDate()
@@ -607,7 +628,13 @@ namespace app
             {
                 //step2 initialize the recordlist
                  m_recordList.Clear();
+                 m_diagnosisList.Clear();
+                
                  ReaderCSV(m_filepath);
+                 foreach (Record record in m_recordList)
+                 {
+                     m_diagnosisList.Add(record.Diagnose);
+                 }
                 //m_currentRecord = m_recordList.Last();
             }
             catch(Exception val)
