@@ -143,8 +143,10 @@ namespace app
                     SetCurrentRecord(peopleList.First());
                     
                     //not noly set the focus and also add the cache date
-                    //this.DiagnosisBox.Focus();
-                    
+                    FindDiagnosisContent(m_currentRecord.Name, calenderTimePicker.Text, m_setting.BeforeDays);
+                    this.DiagnosisBox.Focus();
+                   
+
                 }
                 else
                 {
@@ -159,6 +161,61 @@ namespace app
             }
         }
 
+        private void FindDiagnosisContent(string name, string day, int days)
+        {
+            
+            //the user has been appeared in the last two days
+            string diagnosis;
+            if (IsExsitedInRecent(name,day,days,out diagnosis))
+            {
+                DiagnosisBox.Text = diagnosis;
+                DiagnosisBox.Focus();
+            }
+            else if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
+            {
+                
+            }
+            else
+            {
+                DiagnosisBox.Focus();
+            }
+
+        }
+
+        private bool IsExsitedInRecent(string name, string day, int days, out string diagnosis)
+        {
+            diagnosis = "";
+            DateTimeConverter convert = new DateTimeConverter();
+            DateTime inputDay = (DateTime) convert.ConvertFromString(day);
+            foreach (Record r in m_recordList)
+            {
+                DateTime currentDay;
+                try
+                {
+                    currentDay = (DateTime)convert.ConvertFromString(r.Date);
+                   
+                }
+                catch (Exception)
+                {
+
+                    continue;
+                }
+
+                if (currentDay.AddDays(days) >= inputDay)
+               {
+                   if( r.Name == name)
+                   {
+                       diagnosis = r.Diagnose;
+                       return true;
+                   }
+               }
+               else
+               {
+                   return false; // assume that user input the data from old to latest
+               }
+            }
+            return false;
+        }
 
 
         private void allCostText_KeyUp(object sender, KeyEventArgs e)
@@ -958,9 +1015,10 @@ namespace app
         private void DiagnosisBox_KeyUp(object sender, KeyEventArgs e)
         {
             if((int)e.KeyValue == 13 && !String.IsNullOrEmpty(DiagnosisBox.Text.Trim()))
-                {
-                    allCostText.Focus();
-                }
+            {
+                m_currentRecord.Diagnose = DiagnosisBox.Text.Trim();
+                allCostText.Focus();
+            }
             
         }
     }
