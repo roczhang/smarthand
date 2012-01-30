@@ -102,7 +102,7 @@ namespace app
                    
             this.calenderTimePicker.Enabled = enabled;
 
-            this.diagnosisText.Enabled = enabled;
+            this.DiagnosisBox.Enabled = enabled;
             this.allCostText.Enabled   = enabled;
             this.selfPayText.Enabled   = enabled;
             this.compensatePayText.Enabled = enabled;
@@ -142,7 +142,9 @@ namespace app
 
                     SetCurrentRecord(peopleList.First());
                     
-                    this.diagnosisText.Focus();
+                    //not noly set the focus and also add the cache date
+                    //this.DiagnosisBox.Focus();
+                    
                 }
                 else
                 {
@@ -155,18 +157,9 @@ namespace app
                 }
                 
             }
-
-            
         }
 
-        private void diagnosisText_KeyUp(object sender, KeyEventArgs e)
-        {
-            if ( e.KeyValue == 13 &&!String.IsNullOrEmpty(diagnosisText.Text.Trim()))
-            {
-                m_currentRecord.Diagnose = this.diagnosisText.Text.Trim();
-                allCostText.Focus();
-            }
-        }
+
 
         private void allCostText_KeyUp(object sender, KeyEventArgs e)
         {
@@ -326,7 +319,7 @@ namespace app
                    !String.IsNullOrEmpty(addressText.Text.Trim()) &&
                    !String.IsNullOrEmpty(ageText.Text.Trim()) &&
                    !String.IsNullOrEmpty(SexBox.Text.Trim()) &&
-                   !String.IsNullOrEmpty(diagnosisText.Text.Trim()) &&
+                   !String.IsNullOrEmpty(DiagnosisBox.Text.Trim()) &&
                    !String.IsNullOrEmpty(allCostText.Text.Trim()) &&
                    !string.IsNullOrEmpty(selfPayText.Text.Trim())&&
                    !string.IsNullOrEmpty(compensatePayText.Text.Trim()))
@@ -428,12 +421,12 @@ namespace app
                 nameText.Text = current.Name;
                 numberText.Text = current.No;
                 ageText.Text = current.Age.ToString();
-                sexText.Text = current.Sex;
+                SexBox.Text = current.Sex;
                 addressText.Text = current.Address;
 
                 calenderTimePicker.Text = current.Date;
 
-                diagnosisText.Text = current.Diagnose;
+                DiagnosisBox.Text = current.Diagnose;
                 allCostText.Text = current.AllCost.ToString("F2");
                 compensatePayText.Text = current.Compensation.ToString("F2");
                 selfPayText.Text = current.SelfPay.ToString("F2");
@@ -460,7 +453,7 @@ namespace app
             this.addressText.Clear();
             this.numberText.Clear();
 
-            this.diagnosisText.Clear();
+            this.DiagnosisBox.Text="";
             this.allCostText.Clear();
             this.selfPayText.Clear();
             this.compensatePayText.Clear();
@@ -525,24 +518,6 @@ namespace app
             }
         }
 
-        private void sexText_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 13 && !String.IsNullOrEmpty(sexText.Text.Trim()))
-            {
-                string temp= sexText.Text.Trim();
-                if( temp == @"男" || temp == "女")
-                {
-                    m_currentRecord.Sex = temp;
-                    diagnosisText.Focus();
-                }
-                else
-                {
-                    ShowMesage("性别只能是男或女");
-                    sexText.Text = "";
-                    sexText.Focus();
-                }
-            }
-        }
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -975,9 +950,18 @@ namespace app
                 if (SexBox.Text == "男" || SexBox.Text == "女")
                 {
                     this.m_currentRecord.Sex = SexBox.Text;
-                    this.diagnosisText.Focus();
+                    this.DiagnosisBox.Focus();
                 }
             }
+        }
+
+        private void DiagnosisBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if((int)e.KeyValue == 13 && !String.IsNullOrEmpty(DiagnosisBox.Text.Trim()))
+                {
+                    allCostText.Focus();
+                }
+            
         }
     }
 }
