@@ -172,6 +172,11 @@ namespace app
                 DiagnosisBox.Text = capture;
             }
 
+            if (illnessList.Count > 0)
+            {
+                DiagnosisBox.Items.Clear();
+               // DiagnosisBox.Text = illnessList.First();  // statistics data just fill to the list
+            }
             foreach (string s in illnessList)
             {
                 DiagnosisBox.Items.Add(s);
@@ -195,11 +200,43 @@ namespace app
             
             if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
             {
-                IList<string> illnessName = m_diagnosisList.Toplist(5);
+                illnessList = GetToplist(5);
             }
             return false;
 
             
+        }
+
+        private IList<string> GetToplist(int i)
+        {
+    
+            Dictionary<string, int> statistics = new Dictionary<string, int>();
+            foreach (Record r in m_recordList)
+            {
+                if(statistics.ContainsKey(r.Diagnose))
+                {
+                    statistics[r.Diagnose]++;
+                }
+                else
+                {
+                    statistics.Add(r.Diagnose, 1);
+                }
+            }
+
+            //KeyValuePair<string, int> pair;
+            var result = from pair in statistics orderby pair.Value descending select pair;
+            List<string> toplist = new List<string>();
+            foreach (KeyValuePair<string, int> elem in result)
+            {
+                if( i <= 0)
+                {
+                    break;
+                }
+                i--;
+                toplist.Add(elem.Key);
+            }
+
+            return toplist;
         }
 
         private bool IsExsitedInRecent(string name, string day, int days, out string diagnosis)
@@ -207,13 +244,16 @@ namespace app
             diagnosis = "";
             DateTimeConverter convert = new DateTimeConverter();
             DateTime inputDay = (DateTime) convert.ConvertFromString(day);
-            foreach (Record r in m_recordList)
+
+          
+            for (int i = m_recordList.Count-1; i>= 0; i--  )
             {
+                Record r = m_recordList[i];
                 DateTime currentDay;
                 try
                 {
-                    currentDay = (DateTime)convert.ConvertFromString(r.Date);
-                   
+                    currentDay = (DateTime) convert.ConvertFromString(r.Date);
+
                 }
                 catch (Exception)
                 {
@@ -222,17 +262,17 @@ namespace app
                 }
 
                 if (currentDay.AddDays(days) >= inputDay)
-               {
-                   if( r.Name == name)
-                   {
-                       diagnosis = r.Diagnose;
-                       return true;
-                   }
-               }
-               //else
-               //{
-               //    return false; // assume that user input the data from old to latest
-               //}
+                {
+                    if (r.Name == name)
+                    {
+                        diagnosis = r.Diagnose;
+                        return true;
+                    }
+                }
+                else
+                {
+                    break; // assume that user input the data from old to latest
+                }
             }
             return false;
         }
