@@ -128,38 +128,50 @@ namespace app
             this.ageText.Text = people.Age.ToString();
             this.SexBox.Text = people.Sex;
             this.addressText.Text = people.Address;
-
+            
             m_currentRecord.People = people;
         }
 
         private void nameText_KeyUp(object sender, KeyEventArgs e)
-       {
+        {
             if(e.KeyValue == 13 && ! String.IsNullOrEmpty(nameText.Text.Trim()))
             {
-                m_currentRecord.Name = nameText.Text.Trim();
-                List<PeopleInfo> peopleList = new List<PeopleInfo>();
-                m_isCatched = m_smartbufferlist.Query(m_currentRecord.Name, ref peopleList);
-                if (m_isCatched)
-                {
+                LostFocus();
+            }
+        }
+        private void nameText_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.nameText.Text.Trim()))
+            {
+                ShowMesage(@"请输入名字");
+                return;
+            }
+        }
 
-                    SetCurrentRecord(peopleList.First());
-                    
-                    //not noly set the focus and also add the cache date
-                    UpdateDiagnosisBox();
-                    //this.DiagnosisBox.Focus();
-                   
+        private void LostFocus()
+        {
+            m_currentRecord.Name = nameText.Text.Trim();
+            List<PeopleInfo> peopleList = new List<PeopleInfo>();
+            m_isCatched = m_smartbufferlist.Query(m_currentRecord.Name, ref peopleList);
+            if (m_isCatched)
+            {
+                SetCurrentRecord(peopleList.First());
 
-                }
-                else
-                {
-                    this.numberText.Text = "";
-                    this.ageText.Text = "";
-                    this.SexBox.Text = ""; // statistics number : C(woman) > C(man)
-                    this.addressText.Text = "";
-
-                    this.numberText.Focus();
-                }
-                
+                //not noly set the focus and also add the cache date
+                UpdateDiagnosisBox();
+                //this.DiagnosisBox.Focus();
+            }
+            else
+            {
+                this.numberText.Text = "";
+                this.ageText.Text = "";
+                this.SexBox.Text = ""; // statistics number : C(woman) > C(man)
+                this.addressText.Text = "";
+                this.DiagnosisBox.Text = "";
+                this.allCostText.Text = "";
+                this.compensatePayText.Text = "";
+                this.selfPayText.Text = "";
+                this.numberText.Focus();
             }
         }
 
@@ -277,40 +289,55 @@ namespace app
             return false;
         }
 
-
+        private void allCostText_Leave(object sender, EventArgs e)
+        {
+            LostAllcostControl(true);
+        }
         private void allCostText_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(allCostText.Text.Trim()))
             {
                 
-                float allcost;
-                if(!float.TryParse(this.allCostText.Text.Trim(),out allcost))
-                {
-                    ShowMesage(@"总费用应该是数字");
-                    allCostText.Text = "";
-                    allCostText.Focus();
-                    return;
-                }
-                if (!ValidateMorethanZero(allcost))
-                {
-                    ShowMesage(@"总费用不能小于0！");
-                    allCostText.Text = "";
-                    allCostText.Focus();
-                    return;
-                }
-
-                CostFormular cf = new CostFormular(allcost,m_setting.Ratio);
-
-                m_currentRecord.AllCost = cf.AllCost;
-                m_currentRecord.Compensation = cf.Compentation;
-
-
-                this.allCostText.Text = m_currentRecord.AllCost.ToString("F2");
-                this.selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
-                this.compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-
-                compensatePayText.Focus();
+                LostAllcostControl(false);
             }
+        }
+
+        private void LostAllcostControl(bool leave)
+        {
+            float allcost;
+            if (!float.TryParse(this.allCostText.Text.Trim(), out allcost))
+            {
+                ShowMesage(@"总费用应该是数字");
+                allCostText.Text = "";
+                if (!leave)
+                { allCostText.Focus(); }
+                return;
+            }
+            if (!ValidateMorethanZero(allcost))
+            {
+                ShowMesage(@"总费用不能小于0！");
+                allCostText.Text = "";
+                if(!leave)
+                { allCostText.Focus(); }
+                
+                return;
+            }
+
+            CostFormular cf = new CostFormular(allcost, m_setting.Ratio);
+
+            m_currentRecord.AllCost = cf.AllCost;
+            m_currentRecord.Compensation = cf.Compentation;
+
+
+            this.allCostText.Text = m_currentRecord.AllCost.ToString("F2");
+            this.selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+            this.compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+
+            if(!leave)
+            {
+                compensatePayText.Focus();    
+            }
+            
         }
 
         private void ShowMesage(string val)
@@ -321,61 +348,73 @@ namespace app
             }
         }
 
-        private void ShowMesage(int lineNo,string promote, string val)
-        {
-            string format = lineNo.ToString() + ": " + promote + "[" + val + "]";
-            ShowMesage(format);
-        }
 
+
+        private void compensatePayText_Leave(object sender, EventArgs e)
+        {
+            LostCompentationControl(true);
+        }
         private void compensatePayText_KeyUp(object sender, KeyEventArgs e)
         {
-
-
              if (e.KeyValue == 13 && !String.IsNullOrEmpty(compensatePayText.Text.Trim()))
              {
-                 string newValue = compensatePayText.Text.Trim();
-                 string oldValue = m_currentRecord.Compensation.ToString();
-    
-                 if (  String.Compare(newValue, oldValue) != 0)
-                 {
-                     float newVal;
-                     if(!float.TryParse(newValue,out newVal))
-                     {
-                         ShowMesage(@"总费用应该是数字");
-                         compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-                         compensatePayText.Focus();
-                         return;
-                     }
-
-                     if (! ValidateMorethanZero(newVal))
-                     {
-                         ShowMesage(@"补偿费应该大于0");
-                         compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-                         compensatePayText.Focus();
-                         return;
-                     }
-
-                     if (newVal - m_currentRecord.AllCost > 0)
-                     {
-                         ShowMesage("补偿费("+newVal.ToString("F2")+")不能大于总费用("+m_currentRecord.AllCost.ToString("F2")+")!");
-                         compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-                         compensatePayText.Focus();
-                         return;
-                     }
-
-                     m_currentRecord.Compensation = newVal;
-                     compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-                     selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
-                 }
-                 
-                  NextRecord.Focus();
-
+                 LostCompentationControl(false);
              }
         }
 
-        private bool ValidateMorethanZero(float val)
+        private void LostCompentationControl(bool leave)
         {
-            return val > 0.0f;
+            string newValue = compensatePayText.Text.Trim();
+            string oldValue = m_currentRecord.Compensation.ToString();
+
+            if (String.Compare(newValue, oldValue) != 0)
+            {
+                float newVal;
+                if (!float.TryParse(newValue, out newVal))
+                {
+                    ShowMesage(@"总费用应该是数字");
+                    compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                    if (!leave)
+                    {
+                        compensatePayText.Focus();
+                    }
+                    return;
+                }
+
+                if (! ValidateMorethanZero(newVal))
+                {
+                    ShowMesage(@"补偿费应该大于0");
+                    compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                    if (!leave)
+                    {
+                        compensatePayText.Focus();
+                    }
+                    return;
+                }
+
+                if (newVal - m_currentRecord.AllCost > 0)
+                {
+                    ShowMesage("补偿费(" + newVal.ToString("F2") + ")不能大于总费用(" + m_currentRecord.AllCost.ToString("F2") + ")!");
+                    compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                    if (!leave)
+                    {
+                        compensatePayText.Focus();
+                    }
+                    return;
+                }
+
+                m_currentRecord.Compensation = newVal;
+                compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+            }
+            
+            NextRecord.Focus();
+        }
+
+
+        private void selfPayText_Leave(object sender, EventArgs e)
+        {
+            LostSelfpayControl(true);
         }
 
         private void selfPayText_KeyUp(object sender, KeyEventArgs e)
@@ -383,47 +422,61 @@ namespace app
 
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(selfPayText.Text.Trim()))
             {
-                float selfPay;
-                string newValue = selfPayText.Text.Trim();
-                string oldValue = m_currentRecord.SelfPay.ToString();
-                if (String.Compare(newValue, oldValue) != 0)
-                {
-                    if (!float.TryParse(selfPayText.Text.Trim(), out selfPay))
-                    {
-                        ShowMesage(@"总费用应该是数字");
-                        selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
-                        selfPayText.Focus();
-                        return;
-                    }
-
-                    if (!ValidateMorethanZero(selfPay))
-                    {
-                        ShowMesage(@"自付费用不能小于0！");
-                        selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
-                        selfPayText.Focus();
-                        return;
-                    }
-
-                    if (selfPay > m_currentRecord.AllCost)
-                    {
-                        ShowMesage(@"自付费" + selfPay.ToString("F2") + "用不能大于总费用" + m_currentRecord.AllCost.ToString("F2") +
-                                   ")!");
-                        selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
-                        selfPayText.Focus();
-                        return;
-                    }
-
-
-                    m_currentRecord.Compensation = m_currentRecord.AllCost - selfPay;
-
-                    compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
-                    selfPayText.Text = selfPay.ToString("F2");
-                }
-                
-                NextRecord.Focus();
-               
+                LostSelfpayControl(false);
             }
         }
+
+        private void LostSelfpayControl(bool leave)
+        {
+            float selfPay;
+            string newValue = selfPayText.Text.Trim();
+            string oldValue = m_currentRecord.SelfPay.ToString();
+            if (String.Compare(newValue, oldValue) != 0)
+            {
+                if (!float.TryParse(selfPayText.Text.Trim(), out selfPay))
+                {
+                    ShowMesage(@"总费用应该是数字");
+                    selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                    if(!leave)
+                    {
+                        selfPayText.Focus();
+                    }
+                    return;
+                }
+
+                if (!ValidateMorethanZero(selfPay))
+                {
+                    ShowMesage(@"自付费用不能小于0！");
+                    selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                    if (!leave)
+                    {
+                        selfPayText.Focus();
+                    }
+                    return;
+                }
+
+                if (selfPay > m_currentRecord.AllCost)
+                {
+                    ShowMesage(@"自付费" + selfPay.ToString("F2") + "用不能大于总费用" + m_currentRecord.AllCost.ToString("F2") +
+                               ")!");
+                    selfPayText.Text = m_currentRecord.SelfPay.ToString("F2");
+                    if (!leave)
+                    {
+                        selfPayText.Focus();
+                    }
+                    return;
+                }
+
+
+                m_currentRecord.Compensation = m_currentRecord.AllCost - selfPay;
+
+                compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
+                selfPayText.Text = selfPay.ToString("F2");
+            }
+
+            NextRecord.Focus();
+        }
+
         private void NextRecord_Click(object sender, EventArgs e)
         {
            
@@ -441,7 +494,6 @@ namespace app
                    !string.IsNullOrEmpty(selfPayText.Text.Trim())&&
                    !string.IsNullOrEmpty(compensatePayText.Text.Trim()))
                {
-                  
                    //when open exsite file ,the current text box display the last record from m_recordlist
                    //Now add the record it will create duplicate code.
                    if(String.IsNullOrEmpty(m_currentRecord.Name))
@@ -453,6 +505,7 @@ namespace app
                        string tlabel = Indicator2Position(m_indicator) + "/" + m_recordList.Count.ToString();
                        UpdateIndicator(m_indicator, -1, -1, tlabel);
 
+                       nameText.Focus();
                        return;
                    }
 
@@ -608,6 +661,20 @@ namespace app
             }
         }
 
+        private void numberText_Leave(object sender, EventArgs e)
+        {
+            string temp = numberText.Text.Trim();
+            if (temp.Length == 13)
+            {
+                m_currentRecord.No = numberText.Text.Trim();
+                addressText.Focus();
+            }
+            else
+            {
+                ShowMesage(@"医疗号长度应该是13位:现在长度为:" + temp.Length + ". 请确认");
+            }
+
+        }
         private void addressText_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(addressText.Text.Trim()))
@@ -616,26 +683,54 @@ namespace app
 
                 ageText.Focus();
             }
-
+        }
+        private void addressText_Leave(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(addressText.Text.Trim()))
+            {
+                m_currentRecord.Address = addressText.Text.Trim();
+                ageText.Focus();
+            }
+            else
+            {
+                
+            }
         }
 
         private void ageText_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13 && !String.IsNullOrEmpty(ageText.Text.Trim()))
             {
-                float age;
-                if( !float.TryParse(ageText.Text.Trim(),out age))
-                {
-                    ShowMesage(@"年龄必须是数值");
-                    ageText.Text = "";
-                    return;
-                }
-                m_currentRecord.Age = age;
-                SexBox.Text = "女";
-                SexBox.Focus();
+                LostAgeControlFocus();
             }
         }
+        private void ageText_Leave(object sender, EventArgs e)
+        {
+            float age;
+            if (!float.TryParse(ageText.Text.Trim(), out age))
+            {
+                ShowMesage(@"年龄必须是数值");
+                ageText.Text = "";
+                return;
+            }
+            m_currentRecord.Age = age;
+            SexBox.Text = "女";
+        }
 
+        private void LostAgeControlFocus()
+        {
+            float age;
+            if (!float.TryParse(ageText.Text.Trim(), out age))
+            {
+                ShowMesage(@"年龄必须是数值");
+                ageText.Text = "";
+                ageText.Focus();
+                return;
+            }
+            m_currentRecord.Age = age;
+            SexBox.Text = "女";
+            SexBox.Focus();
+        }
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -667,13 +762,13 @@ namespace app
             try
             {
                 //step2 initialize the recordlist
-                 m_recordList.Clear();
-                 m_diagnosisList.Clear();
+                 m_recordList.Clear(); 
+                 m_currentRecord.Clear();
                 
                  ReaderCSV(m_filepath);
                  foreach (Record record in m_recordList)
                  {
-                     m_diagnosisList.Add(record.Diagnose);
+                     m_smartbufferlist.AddRecord(record.People);
                  }
                 //m_currentRecord = m_recordList.Last();
             }
@@ -707,6 +802,7 @@ namespace app
 
                 //enable UI
                 EnableInput(true);
+                nameText.Focus();
             }
 
 
@@ -1066,7 +1162,20 @@ namespace app
 
         }
 
+        private void SexBox_Leave(object sender, EventArgs e)
+        {
+            if (SexBox.Text == "男" || SexBox.Text == "女")
+            {
+                this.m_currentRecord.Sex = SexBox.Text;
+                this.DiagnosisBox.Focus();
+            }
+            else
+            {
+                ShowMesage("请选择性别");
+               
+            }
 
+        }
         private void SexBox_KeyUp(object sender, KeyEventArgs e)
         {
             if( (int)e.KeyValue == 13 )
@@ -1088,5 +1197,44 @@ namespace app
             }
             
         }
+        private void DiagnosisBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(DiagnosisBox.Text.Trim()))
+            {
+                ShowMesage("请选择或者输入诊断结果");
+ 
+            }
+            else
+            {
+                m_currentRecord.Diagnose = DiagnosisBox.Text.Trim();
+                allCostText.Focus();
+            }
+        }
+
+
+
+        private void ShowMesage(int lineNo, string promote, string val)
+        {
+            string format = lineNo.ToString() + ": " + promote + "[" + val + "]";
+            ShowMesage(format);
+        }
+
+        private bool ValidateMorethanZero(float val)
+        {
+            return !(val < 0);
+        }
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+      
     }
 }

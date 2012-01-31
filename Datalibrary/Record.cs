@@ -119,8 +119,8 @@ namespace DataLibrary
 
         public  string BasicInfo()
         {
-            return m_p.Name + " " + m_p.No + "\r\n"
-                + AllCost.ToString("F2") + " /" + Compensation.ToString("F2");
+            return m_p.Name + " " + m_p.No + "\r\n" +
+                Diagnose + " " + AllCost.ToString("F2") + " /" + Compensation.ToString("F2");
         }
 
         public new string ToString()

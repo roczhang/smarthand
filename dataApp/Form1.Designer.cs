@@ -95,6 +95,7 @@
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(100, 20);
             this.nameText.TabIndex = 1;
+            this.nameText.Leave += new System.EventHandler(this.nameText_Leave);
             this.nameText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nameText_KeyUp);
             // 
             // label2
@@ -114,6 +115,7 @@
             this.addressText.Name = "addressText";
             this.addressText.Size = new System.Drawing.Size(100, 20);
             this.addressText.TabIndex = 3;
+            this.addressText.Leave += new System.EventHandler(this.addressText_Leave);
             this.addressText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.addressText_KeyUp);
             // 
             // label3
@@ -133,6 +135,7 @@
             this.ageText.Name = "ageText";
             this.ageText.Size = new System.Drawing.Size(100, 20);
             this.ageText.TabIndex = 4;
+            this.ageText.Leave += new System.EventHandler(this.ageText_Leave);
             this.ageText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ageText_KeyUp);
             this.ageText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
@@ -163,6 +166,7 @@
             this.numberText.Name = "numberText";
             this.numberText.Size = new System.Drawing.Size(100, 20);
             this.numberText.TabIndex = 2;
+            this.numberText.Leave += new System.EventHandler(this.numberText_Leave);
             this.numberText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numberText_KeyUp);
             this.numberText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noText_KeyPress);
             // 
@@ -195,6 +199,7 @@
             this.SexBox.Name = "SexBox";
             this.SexBox.Size = new System.Drawing.Size(100, 21);
             this.SexBox.TabIndex = 24;
+            this.SexBox.Leave += new System.EventHandler(this.SexBox_Leave);
             this.SexBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SexBox_KeyUp);
             // 
             // label7
@@ -214,6 +219,7 @@
             this.allCostText.Name = "allCostText";
             this.allCostText.Size = new System.Drawing.Size(100, 20);
             this.allCostText.TabIndex = 8;
+            this.allCostText.Leave += new System.EventHandler(this.allCostText_Leave);
             this.allCostText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.allCostText_KeyUp);
             this.allCostText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
@@ -234,6 +240,7 @@
             this.selfPayText.Name = "selfPayText";
             this.selfPayText.Size = new System.Drawing.Size(100, 20);
             this.selfPayText.TabIndex = 9;
+            this.selfPayText.Leave += new System.EventHandler(this.selfPayText_Leave);
             this.selfPayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.selfPayText_KeyUp);
             this.selfPayText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
@@ -254,6 +261,7 @@
             this.compensatePayText.Name = "compensatePayText";
             this.compensatePayText.Size = new System.Drawing.Size(100, 20);
             this.compensatePayText.TabIndex = 10;
+            this.compensatePayText.Leave += new System.EventHandler(this.compensatePayText_Leave);
             this.compensatePayText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.compensatePayText_KeyUp);
             this.compensatePayText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Text_KeyPress);
             // 
@@ -287,6 +295,7 @@
             this.DiagnosisBox.Name = "DiagnosisBox";
             this.DiagnosisBox.Size = new System.Drawing.Size(99, 21);
             this.DiagnosisBox.TabIndex = 25;
+            this.DiagnosisBox.Leave += new System.EventHandler(this.DiagnosisBox_Leave);
             this.DiagnosisBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DiagnosisBox_KeyUp);
             // 
             // label10
