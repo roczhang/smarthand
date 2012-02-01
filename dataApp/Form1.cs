@@ -136,7 +136,7 @@ namespace app
         {
             if(e.KeyValue == 13 && ! String.IsNullOrEmpty(nameText.Text.Trim()))
             {
-                LostFocus();
+                LostNametextFocus();
             }
         }
         private void nameText_Leave(object sender, EventArgs e)
@@ -148,7 +148,7 @@ namespace app
             }
         }
 
-        private void LostFocus()
+        private void LostNametextFocus()
         {
             m_currentRecord.Name = nameText.Text.Trim();
             List<PeopleInfo> peopleList = new List<PeopleInfo>();
@@ -156,10 +156,12 @@ namespace app
             if (m_isCatched)
             {
                 SetCurrentRecord(peopleList.First());
-
-                //not noly set the focus and also add the cache date
-                UpdateDiagnosisBox();
-                //this.DiagnosisBox.Focus();
+                string disgnosis;
+                if ( IsAlreadyExsitedpatient (m_currentRecord.Name, calenderTimePicker.Text, m_setting.BeforeDays,out disgnosis))
+                {
+                    DiagnosisBox.Text = disgnosis;
+                }
+                DiagnosisBox.Focus();
             }
             else
             {
@@ -171,53 +173,78 @@ namespace app
                 this.allCostText.Text = "";
                 this.compensatePayText.Text = "";
                 this.selfPayText.Text = "";
+
                 this.numberText.Focus();
             }
+
+            //Add diagnosis by the stastictis data from old date
+            UpdateDiagnosisBoxByStastistic();
         }
 
-        private void UpdateDiagnosisBox()
+        private void UpdateDiagnosisBoxByStastistic()
         {
-            string capture;
-            IList<String> illnessList;
-            if(FindDiagnosisContent(m_currentRecord.Name, calenderTimePicker.Text, m_setting.BeforeDays,out capture, out illnessList))
-            {
-                DiagnosisBox.Text = capture;
-            }
-
-            if (illnessList.Count > 0)
+            IList<String> illnessList = new List<string>();
+            if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
             {
                 DiagnosisBox.Items.Clear();
-               // DiagnosisBox.Text = illnessList.First();  // statistics data just fill to the list
+                illnessList = GetToplist(5);
             }
             foreach (string s in illnessList)
             {
                 DiagnosisBox.Items.Add(s);
             }
+            
+        }
+
+        private bool IsAlreadyExsitedpatient(string name, string day, int days, out string diagnosis)
+        {
+            return IsExsitedInRecent(name, day, days, out diagnosis);
+
+        }
+
+        //private void UpdateDiagnosisBox()
+        //{
+        //    string capture;
+        //    IList<String> illnessList;
+        //    if(FindDiagnosisContent(m_currentRecord.Name, calenderTimePicker.Text, m_setting.BeforeDays,out capture, out illnessList))
+        //    {
+        //        DiagnosisBox.Text = capture;
+        //    }
+
+        //    if (illnessList.Count > 0)
+        //    {
+        //        DiagnosisBox.Items.Clear();
+        //       // DiagnosisBox.Text = illnessList.First();  // statistics data just fill to the list
+        //    }
+        //    foreach (string s in illnessList)
+        //    {
+        //        DiagnosisBox.Items.Add(s);
+        //    }
           
 
-            DiagnosisBox.Focus();
+        //    DiagnosisBox.Focus();
 
 
-        }
+        //}
 
-        private bool  FindDiagnosisContent(string name, string day, int days,out string capture, out IList<string> illnessList )
-        {
+        //private bool  FindDiagnosisContent(string name, string day, int days,out string capture, out IList<string> illnessList )
+        //{
             
-            //the user has been appeared in the last two days
-            illnessList = new List<string>();
-            if (IsExsitedInRecent(name, day, days, out capture))
-            {
-                return true;
-            }
+        //    //the user has been appeared in the last two days
+        //    illnessList = new List<string>();
+        //    if (IsExsitedInRecent(name, day, days, out capture))
+        //    {
+        //        return true;
+        //    }
             
-            if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
-            {
-                illnessList = GetToplist(5);
-            }
-            return false;
+        //    if( m_recordList.Count > 0) // get the first 5 entries which will fill the list
+        //    {
+        //        illnessList = GetToplist(5);
+        //    }
+        //    return false;
 
             
-        }
+        //}
 
         private IList<string> GetToplist(int i)
         {
@@ -307,7 +334,10 @@ namespace app
             float allcost;
             if (!float.TryParse(this.allCostText.Text.Trim(), out allcost))
             {
-                ShowMesage(@"总费用应该是数字");
+                if( !string.IsNullOrEmpty(nameText.Text.Trim()))
+                {
+                    ShowMesage(@"总费用应该是数字");
+                }
                 allCostText.Text = "";
                 if (!leave)
                 { allCostText.Focus(); }
@@ -315,7 +345,11 @@ namespace app
             }
             if (!ValidateMorethanZero(allcost))
             {
-                ShowMesage(@"总费用不能小于0！");
+                if( !string.IsNullOrEmpty(nameText.Text.Trim()))
+                {
+                     ShowMesage(@"总费用不能小于0！");
+                }
+               
                 allCostText.Text = "";
                 if(!leave)
                 { allCostText.Focus(); }
@@ -372,7 +406,10 @@ namespace app
                 float newVal;
                 if (!float.TryParse(newValue, out newVal))
                 {
-                    ShowMesage(@"总费用应该是数字");
+                    if (!string.IsNullOrEmpty(nameText.Text.Trim()))
+                    {
+                        ShowMesage(@"总费用应该是数字");
+                    }
                     compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
                     if (!leave)
                     {
@@ -383,7 +420,10 @@ namespace app
 
                 if (! ValidateMorethanZero(newVal))
                 {
-                    ShowMesage(@"补偿费应该大于0");
+                    if (!string.IsNullOrEmpty(nameText.Text.Trim()))
+                    {
+                        ShowMesage(@"补偿费应该大于0");
+                    }
                     compensatePayText.Text = m_currentRecord.Compensation.ToString("F2");
                     if (!leave)
                     {
@@ -671,7 +711,10 @@ namespace app
             }
             else
             {
-                ShowMesage(@"医疗号长度应该是13位:现在长度为:" + temp.Length + ". 请确认");
+                if(! string.IsNullOrEmpty(nameText.Text.Trim()))
+                {
+                    ShowMesage(@"医疗号长度应该是13位:现在长度为:" + temp.Length + ". 请确认");
+                }
             }
 
         }
@@ -688,6 +731,7 @@ namespace app
         {
             if (!String.IsNullOrEmpty(addressText.Text.Trim()))
             {
+
                 m_currentRecord.Address = addressText.Text.Trim();
                 ageText.Focus();
             }
@@ -709,7 +753,11 @@ namespace app
             float age;
             if (!float.TryParse(ageText.Text.Trim(), out age))
             {
-                ShowMesage(@"年龄必须是数值");
+                if( !string.IsNullOrEmpty(nameText.Text.Trim()))
+                {
+                    ShowMesage(@"年龄必须是数值");
+                }
+               
                 ageText.Text = "";
                 return;
             }
@@ -722,7 +770,11 @@ namespace app
             float age;
             if (!float.TryParse(ageText.Text.Trim(), out age))
             {
-                ShowMesage(@"年龄必须是数值");
+                if (!string.IsNullOrEmpty(nameText.Text.Trim()))
+                {
+                    ShowMesage(@"年龄必须是数值");
+                }
+
                 ageText.Text = "";
                 ageText.Focus();
                 return;
@@ -1171,7 +1223,11 @@ namespace app
             }
             else
             {
-                ShowMesage("请选择性别");
+                if( !string.IsNullOrEmpty( nameText.Text.Trim()))
+                {
+                    ShowMesage("请选择性别");
+                }
+               
                
             }
 
@@ -1199,9 +1255,13 @@ namespace app
         }
         private void DiagnosisBox_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(DiagnosisBox.Text.Trim()))
+            if (string.IsNullOrEmpty(DiagnosisBox.Text.Trim()) )
             {
-                ShowMesage("请选择或者输入诊断结果");
+                if ( !string.IsNullOrEmpty(nameText.Text.Trim()))
+                {
+                    ShowMesage("请选择或者输入诊断结果");
+                }
+
  
             }
             else

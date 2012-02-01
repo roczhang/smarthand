@@ -285,12 +285,6 @@
             // 
             this.DiagnosisBox.Enabled = false;
             this.DiagnosisBox.FormattingEnabled = true;
-            this.DiagnosisBox.Items.AddRange(new object[] {
-            "上感",
-            "支气管炎",
-            "胃溃疡",
-            "湿疹",
-            "牙周炎"});
             this.DiagnosisBox.Location = new System.Drawing.Point(63, 32);
             this.DiagnosisBox.Name = "DiagnosisBox";
             this.DiagnosisBox.Size = new System.Drawing.Size(99, 21);

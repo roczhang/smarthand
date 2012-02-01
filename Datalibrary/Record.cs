@@ -113,8 +113,8 @@ namespace DataLibrary
         {
             m_p.Clear();
             this.Diagnose = "";
-            this.AllCost = 0.0f;
-            this.Compensation = 0.0f;
+            this.AllCost = 0f;
+            this.Compensation = 0f;
         }
 
         public  string BasicInfo()

@@ -19,3 +19,8 @@ C:\Users\zhangroc\app\app\bin\Debug\DataLibrary.pdb
 C:\Users\zhangroc\app\app\Datalibrary\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\zhangroc\app\app\Datalibrary\obj\Debug\DataLibrary.dll
 C:\Users\zhangroc\app\app\Datalibrary\obj\Debug\DataLibrary.pdb
+C:\Users\zhangroc\app\test\smarthand\bin\Debug\DataLibrary.dll
+C:\Users\zhangroc\app\test\smarthand\bin\Debug\DataLibrary.pdb
+C:\Users\zhangroc\app\test\smarthand\Datalibrary\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\zhangroc\app\test\smarthand\Datalibrary\obj\Debug\DataLibrary.dll
+C:\Users\zhangroc\app\test\smarthand\Datalibrary\obj\Debug\DataLibrary.pdb
